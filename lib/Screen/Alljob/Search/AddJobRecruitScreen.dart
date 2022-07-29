@@ -1,4 +1,3 @@
-
 import 'package:alljob/Screen/Alljob/Profile/Widgets/AddTextForm.dart';
 import 'package:alljob/Screen/Widgets/ButtonRounded.dart';
 import 'package:flutter/cupertino.dart';
@@ -223,61 +222,64 @@ class _AddJobRecruitScreenState extends State<AddJobRecruitScreen> {
                                 hintText: '',
                                 maxLines: 4,
                               ),
-                              SizedBox(height: 25),
-                              ButtonRounded(
-                                text: 'บันทึก',
-                                color: Colors.blue,
-                                textColor: Colors.white,
-                                onPressed: () {
-                                  showCupertinoDialog(
-                                    context: context,
-                                    builder: (context) => CupertinoAlertDialog(
-                                      title: Text(
-                                        'ดำเนินการเรียบร้อย',
-                                        //style: TextStyle(fontFamily: fontFamily),
-                                      ),
-                                      content: Text(
-                                        'ต้องการออกจากหน้านี้หรือไม่',
-                                        //style: TextStyle(fontFamily: fontFamily),
-                                      ),
-                                      actions: <CupertinoDialogAction>[
-                                        CupertinoDialogAction(
-                                          child: Text(
-                                            'ยกเลิก',
-                                            // style: TextStyle(
-                                            //   color: kThemeTextColor,
-                                            //   fontFamily: fontFamily,
-                                            //   fontWeight: FontWeight.bold,
-                                            // ),
-                                          ),
-                                          onPressed: () =>
-                                              Navigator.pop(context, true),
-                                        ),
-                                        CupertinoDialogAction(
-                                          child: Text(
-                                            'ตกลง',
-                                            // style: TextStyle(
-                                            //   color: kThemeTextColor,
-                                            //   fontFamily: fontFamily,
-                                            // ),
-                                          ),
-                                          onPressed: () => Navigator.of(context)
-                                            ..pop()
-                                            ..pop(),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                              //SizedBox(height: 25),
                             ],
                           ),
                         ),
+                        SizedBox(height: 25),
+                        ButtonRounded(
+                          text: 'บันทึก',
+                          color: Colors.blue,
+                          textColor: Colors.white,
+                          onPressed: () {
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (context) => CupertinoAlertDialog(
+                                title: Text(
+                                  'ดำเนินการเรียบร้อย',
+                                  //style: TextStyle(fontFamily: fontFamily),
+                                ),
+                                content: Text(
+                                  'ต้องการออกจากหน้านี้หรือไม่',
+                                  //style: TextStyle(fontFamily: fontFamily),
+                                ),
+                                actions: <CupertinoDialogAction>[
+                                  CupertinoDialogAction(
+                                    child: Text(
+                                      'ยกเลิก',
+                                      // style: TextStyle(
+                                      //   color: kThemeTextColor,
+                                      //   fontFamily: fontFamily,
+                                      //   fontWeight: FontWeight.bold,
+                                      // ),
+                                    ),
+                                    onPressed: () =>
+                                        Navigator.pop(context, true),
+                                  ),
+                                  CupertinoDialogAction(
+                                    child: Text(
+                                      'ตกลง',
+                                      // style: TextStyle(
+                                      //   color: kThemeTextColor,
+                                      //   fontFamily: fontFamily,
+                                      // ),
+                                    ),
+                                    onPressed: () => Navigator.of(context)
+                                      ..pop()
+                                      ..pop(),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                        SizedBox(height: 25),
                       ],
                     ),
                   ),
                 ),
               ),
+              SizedBox(height: 45),
             ],
           ),
         ),

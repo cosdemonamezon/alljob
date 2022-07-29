@@ -1,5 +1,6 @@
 import 'package:alljob/Screen/Alljob/Companies/CompanyScreen.dart';
 import 'package:alljob/Screen/Alljob/Job/JobDetail.dart';
+import 'package:alljob/Screen/Alljob/Job/PositionScreen.dart';
 import 'package:alljob/Screen/Alljob/Job/Widgets/ImageCarouselWidget.dart';
 import 'package:alljob/Screen/Alljob/Job/Widgets/JobCarouselWidget.dart';
 import 'package:alljob/Screen/Alljob/Job/Widgets/SlidelJobWidget.dart';
@@ -72,8 +73,48 @@ class _JobScreenState extends State<JobScreen> {
     }
   ];
 
+  List<Map<String, dynamic>> poppular = [
+    {
+      'title': 'กรุงเทพ',
+      'subtitle': '40,995',
+    },
+    {
+      'title': 'ตะวันออก',
+      'subtitle': '40,995',
+    },
+    {
+      'title': 'นิคมอุตสาหกรรม',
+      'subtitle': '40,995',
+    },
+    {
+      'title': 'งานภาคกลาง',
+      'subtitle': '40,995',
+    },
+    {
+      'title': 'ภาคอีสาน',
+      'subtitle': '40,995',
+    },
+    {
+      'title': 'Work from Home',
+      'subtitle': '40,995',
+    },
+    {
+      'title': 'Online',
+      'subtitle': '40,995',
+    },
+    {
+      'title': 'ภาคเหนือ',
+      'subtitle': '40,995',
+    },
+    {
+      'title': 'ภาคใต้',
+      'subtitle': '40,995',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       // appBar: AppBar(
       //   title: Text('Job List'),
@@ -145,10 +186,95 @@ class _JobScreenState extends State<JobScreen> {
                   JobCarouselWidget(
                     jobpartner: jobpartner,
                     press: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => CompanyScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CompanyScreen()));
                     },
                   ),
+                  SizedBox(height: 25),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    child: Card(
+                      margin: EdgeInsets.zero,
+                      elevation: 2,
+                      color: Color.fromARGB(255, 238, 236, 236),
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: Color(0xFFF3F3F3),
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                      child: Text("POPULAR JOB",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold))),
+                                  Text(
+                                    'ดูทั้งหมด >',
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Card(
+                                margin: EdgeInsets.zero,
+                                elevation: 0,
+                                color: Color.fromARGB(255, 255, 254, 254),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child: SizedBox(
+                                    height: size.height * 0.06,
+                                    child: Row(
+                                      children: [
+                                        Text('งานทั้งหมด  100,000 อัตรา')
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Wrap(
+                                spacing: 10,
+                                children: List.generate(
+                                    poppular.length,
+                                    (index) => Padding(
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 5),
+                                          child: CardJobWidget(
+                                            size: size,
+                                            poppular: poppular,
+                                            index: index,
+                                          ),
+                                        )),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 25),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     child: Row(
@@ -228,6 +354,51 @@ class _JobScreenState extends State<JobScreen> {
         //     ],
         //   ),
         // ),
+      ),
+    );
+  }
+}
+
+class CardJobWidget extends StatelessWidget {
+  const CardJobWidget({
+    Key? key,
+    required this.size,
+    required this.poppular,
+    this.index,
+  }) : super(key: key);
+
+  final Size size;
+  final List<Map<String, dynamic>> poppular;
+  final index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.zero,
+      elevation: 0,
+      color: Color.fromARGB(255, 255, 254, 254),
+      child: Container(
+        height: size.height * 0.07,
+        width: size.width * 0.27,
+        child: ListTile(
+          dense: true,
+          minLeadingWidth: 1,
+          minVerticalPadding: 1,
+          visualDensity: VisualDensity.compact,
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => PositionScreen()));
+          },
+          title: Text(
+            poppular[index]['title'],
+            style: TextStyle(fontSize: 12),
+            overflow: TextOverflow.ellipsis,
+          ),
+          subtitle: Text(
+            poppular[index]['subtitle'] + ' อัตรา',
+            style: TextStyle(fontSize: 11),
+          ),
+        ),
       ),
     );
   }

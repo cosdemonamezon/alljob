@@ -8,8 +8,9 @@ class TipsCarouselWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
-      height: 280,
+      height: size.height * 0.36,
       color: Colors.white,
       child: ListView.builder(
         padding: EdgeInsets.only(bottom: 10),
@@ -21,8 +22,8 @@ class TipsCarouselWidget extends StatelessWidget {
           return GestureDetector(
             onTap: () {},
             child: Container(
-              width: 180,
-              height: 100,
+              width: size.width * 0.44,
+              //height: size.height * 0.10,
               margin: EdgeInsetsDirectional.only(
                   end: 20, start: index == 0 ? 20 : 0, top: 20, bottom: 10),
               decoration: BoxDecoration(
@@ -53,7 +54,7 @@ class TipsCarouselWidget extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                    height: 130,
+                    height: size.height * 0.18,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -76,7 +77,7 @@ class TipsCarouselWidget extends StatelessWidget {
                         Text(
                           tips![index]['subtitle'],
                           style: TextStyle(fontWeight: FontWeight.w300),
-                          overflow: TextOverflow.fade,
+                          overflow: TextOverflow.ellipsis,
                           maxLines: 3,
                         ),
                       ],
