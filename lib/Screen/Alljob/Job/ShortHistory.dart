@@ -1,5 +1,7 @@
 import 'package:alljob/Screen/Alljob/Job/Widgets/RecordTexForm.dart';
 import 'package:alljob/Screen/Widgets/ButtonRounded.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ShortHistory extends StatefulWidget {
@@ -15,6 +17,9 @@ class _ShortHistoryState extends State<ShortHistory> {
   String mounthvalue = 'เดือน';
   String yearvalue = 'ปี';
   bool isChecked = false;
+
+  FilePickerResult? result, result1, result2;
+  PlatformFile? educationalrecord, workhistory, otherdocuments;
 
   var dropdownDay = [
     'วัน',
@@ -207,11 +212,10 @@ class _ShortHistoryState extends State<ShortHistory> {
                                   isExpanded: true,
                                   icon: const Icon(Icons.keyboard_arrow_down),
                                   elevation: 16,
-                                  style:
-                                      const TextStyle(color: Colors.deepPurple),
+                                  style: const TextStyle(color: Colors.black),
                                   underline: Container(
                                     height: 2,
-                                    color: Colors.deepPurpleAccent,
+                                    color: Colors.grey,
                                   ),
                                   items: dropdownDay.map((String items) {
                                     return DropdownMenuItem(
@@ -236,11 +240,10 @@ class _ShortHistoryState extends State<ShortHistory> {
                                   isExpanded: true,
                                   icon: const Icon(Icons.keyboard_arrow_down),
                                   elevation: 16,
-                                  style:
-                                      const TextStyle(color: Colors.deepPurple),
+                                  style: const TextStyle(color: Colors.black),
                                   underline: Container(
                                     height: 2,
-                                    color: Colors.deepPurpleAccent,
+                                    color: Colors.grey,
                                   ),
                                   items: dropdownMounth.map((String items2) {
                                     return DropdownMenuItem(
@@ -265,11 +268,10 @@ class _ShortHistoryState extends State<ShortHistory> {
                                   isExpanded: true,
                                   icon: const Icon(Icons.keyboard_arrow_down),
                                   elevation: 16,
-                                  style:
-                                      const TextStyle(color: Colors.deepPurple),
+                                  style: const TextStyle(color: Colors.black),
                                   underline: Container(
                                     height: 2,
-                                    color: Colors.deepPurpleAccent,
+                                    color: Colors.grey,
                                   ),
                                   items: dropdownYear.map((String items3) {
                                     return DropdownMenuItem(
@@ -375,7 +377,7 @@ class _ShortHistoryState extends State<ShortHistory> {
               Container(
                 height: 250,
                 width: double.infinity,
-                color: Color.fromARGB(255, 221, 219, 219),
+                color: Color.fromARGB(255, 236, 236, 236),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -389,13 +391,29 @@ class _ShortHistoryState extends State<ShortHistory> {
                           Text('ประวัติการศึกษา'),
                           Wrap(
                             children: [
-                              Container(
-                                  color: Colors.blue,
-                                  child: Center(
-                                      child: Text(
-                                    "เพิ่ม",
-                                    textScaleFactor: 1.5,
-                                  ))),
+                              InkWell(
+                                onTap: () async {
+                                  result =
+                                      await FilePicker.platform.pickFiles();
+                                  setState(() {
+                                    if (result != null) {
+                                      educationalrecord = result!.files.first;
+                                    } else {
+                                      print('No file');
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                    width: size.width * 0.18,
+                                    color: educationalrecord != null
+                                        ? Colors.redAccent
+                                        : Colors.blue,
+                                    child: Center(
+                                        child: Text(
+                                      "เพิ่ม",
+                                      textScaleFactor: 1.5,
+                                    ))),
+                              ),
                             ],
                           ),
                         ],
@@ -410,13 +428,29 @@ class _ShortHistoryState extends State<ShortHistory> {
                           Text('ประวัติการทำงาน'),
                           Wrap(
                             children: [
-                              Container(
-                                  color: Colors.blue,
-                                  child: Center(
-                                      child: Text(
-                                    "เพิ่ม",
-                                    textScaleFactor: 1.5,
-                                  ))),
+                              InkWell(
+                                onTap: () async {
+                                  result1 =
+                                      await FilePicker.platform.pickFiles();
+                                  setState(() {
+                                    if (result != null) {
+                                      workhistory = result!.files.first;
+                                    } else {
+                                      print('No file');
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                    width: size.width * 0.18,
+                                    color: workhistory != null
+                                        ? Colors.redAccent
+                                        : Colors.blue,
+                                    child: Center(
+                                        child: Text(
+                                      "เพิ่ม",
+                                      textScaleFactor: 1.5,
+                                    ))),
+                              ),
                             ],
                           ),
                         ],
@@ -431,13 +465,29 @@ class _ShortHistoryState extends State<ShortHistory> {
                           Text('เอกสารอื่นๆ'),
                           Wrap(
                             children: [
-                              Container(
-                                  color: Colors.blue,
-                                  child: Center(
-                                      child: Text(
-                                    "เพิ่ม",
-                                    textScaleFactor: 1.5,
-                                  ))),
+                              InkWell(
+                                onTap: () async {
+                                  result2 =
+                                      await FilePicker.platform.pickFiles();
+                                  setState(() {
+                                    if (result != null) {
+                                      otherdocuments = result!.files.first;
+                                    } else {
+                                      print('No file');
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                    width: size.width * 0.18,
+                                    color: otherdocuments != null
+                                        ? Colors.redAccent
+                                        : Colors.blue,
+                                    child: Center(
+                                        child: Text(
+                                      "เพิ่ม",
+                                      textScaleFactor: 1.5,
+                                    ))),
+                              ),
                             ],
                           ),
                         ],
@@ -475,13 +525,54 @@ class _ShortHistoryState extends State<ShortHistory> {
               ),
               Center(
                 child: SizedBox(
-                  width: size.width*0.65,
+                  width: size.width * 0.65,
                   child: ButtonRounded(
                     text: 'สมัครงาน',
                     color: Colors.blue,
                     textColor: Colors.white,
                     iconColor: Colors.white,
-                    onPressed: (){},
+                    onPressed: () {
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (context) => CupertinoAlertDialog(
+                          title: Text(
+                            'ดำเนินการเรียบร้อย',
+                            //style: TextStyle(fontFamily: fontFamily),
+                          ),
+                          content: Text(
+                            'ต้องการออกจากหน้านี้หรือไม่',
+                            //style: TextStyle(fontFamily: fontFamily),
+                          ),
+                          actions: <CupertinoDialogAction>[
+                            CupertinoDialogAction(
+                              child: Text(
+                                'ยกเลิก',
+                                // style: TextStyle(
+                                //   color: kThemeTextColor,
+                                //   fontFamily: fontFamily,
+                                //   fontWeight: FontWeight.bold,
+                                // ),
+                              ),
+                              onPressed: () => Navigator.pop(context, true),
+                            ),
+                            CupertinoDialogAction(
+                              child: Text(
+                                'ตกลง',
+                                // style: TextStyle(
+                                //   color: kThemeTextColor,
+                                //   fontFamily: fontFamily,
+                                // ),
+                              ),
+                              onPressed: () => Navigator.of(context)
+                                ..pop()
+                                ..pop()
+                                ..pop()
+                                ..pop(),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
