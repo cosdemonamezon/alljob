@@ -19,24 +19,24 @@ class JobCarouselWidget extends StatelessWidget {
             return InkWell(
               onTap: press,
               child: Container(
-                width: 100,
-                height: 100,
-                margin: EdgeInsetsDirectional.only(
-                    end: 20, start: index == 0 ? 20 : 0),
+                // width: 100,
+                // height: 100,
+                // margin: EdgeInsetsDirectional.only(
+                //     end: 20, start: index == 0 ? 20 : 0),
                 padding: EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [
-                        Colors.blueAccent.withOpacity(0.7),
-                        Colors.blue.withOpacity(0.01)
-                      ],
-                      begin: AlignmentDirectional.topStart,
-                      //const FractionalOffset(1, 0),
-                      end: AlignmentDirectional.bottomEnd,
-                      stops: [0.1, 0.9],
-                      tileMode: TileMode.clamp),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
+                // decoration: BoxDecoration(
+                //   gradient: LinearGradient(
+                //       colors: [
+                //         Colors.blueAccent.withOpacity(0.7),
+                //         Colors.blue.withOpacity(0.01)
+                //       ],
+                //       begin: AlignmentDirectional.topStart,
+                //       //const FractionalOffset(1, 0),
+                //       end: AlignmentDirectional.bottomEnd,
+                //       stops: [0.1, 0.9],
+                //       tileMode: TileMode.clamp),
+                //   borderRadius: BorderRadius.all(Radius.circular(10)),
+                // ),
                 child: Stack(
                   alignment: AlignmentDirectional.topStart,
                   children: [
@@ -46,6 +46,7 @@ class JobCarouselWidget extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         child: Image.asset(
                           jobpartner![index]['img'],
+                          fit: BoxFit.fill,
                           //color: Colors.white,
                         ),
                       ),
