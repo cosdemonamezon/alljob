@@ -73,7 +73,7 @@ class _JobDetailState extends State<JobDetail> with TickerProviderStateMixin {
             labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.blue,
-            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+            labelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'NotoSansThai'),
             tabs: [
               Tab(text: 'รายละเอียด'),
               Tab(text: 'สมัครงาน'),
