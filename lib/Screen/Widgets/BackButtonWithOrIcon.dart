@@ -13,12 +13,18 @@ class BackButtonWithOrIcon extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () => Navigator.of(context).pop(),
-          child: Image.asset(
-            'assets/icons/arrow-left.png',
-            height: appFontSize?.bigSize,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 8),
+            child: Image.asset(
+              'assets/icons/arrow-left.png',
+              height: appFontSize?.bigSize,
+            ),
           ),
         ),
-        Image.asset('assets/images/ALLZOffice.png', height: 50)
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('assets/images/ALLZJOB.png', height: 30),
+        )
       ],
     );
   }

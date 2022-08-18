@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-
+import 'package:alljob/Screen/Alljob/AlljobHome.dart';
 import 'package:alljob/Screen/Register/Widgets/RegisTextField.dart';
 import 'package:alljob/Screen/Widgets/BackButtonWithOrIcon.dart';
 import 'package:alljob/Screen/Widgets/ButtonRounded.dart';
@@ -36,8 +36,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: SingleChildScrollView(
         child: isLoadding == true
             ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                     width: size.width / 1.5,
@@ -162,22 +162,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 height: size.height / 7,
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 20),
+                                      vertical: 5, horizontal: 0),
                                   child: Column(
                                     children: [
                                       SizedBox(height: 8),
                                       ButtonRounded(
                                         text: 'สมัครสมาชิก',
-                                        color: kThemeTextColor,
+                                        color: Colors.blue,
                                         textColor: Colors.white,
                                         onPressed: () async {
                                           if (password.text != '') {
-                                            //register(context);
+                                            Navigator.pushReplacement<void,
+                                                void>(
+                                              context,
+                                              MaterialPageRoute<void>(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        AlljobHome(),
+                                              ),
+                                            );
                                           } else {}
-
-                                          // FocusScope.of(context)
-                                          //     .requestFocus(FocusNode());
-                                          // Navigator.pop(context);
+                                          Navigator.pushReplacement<void, void>(
+                                            context,
+                                            MaterialPageRoute<void>(
+                                              builder: (BuildContext context) =>
+                                                  AlljobHome(),
+                                            ),
+                                          );
                                         },
                                       )
                                     ],
