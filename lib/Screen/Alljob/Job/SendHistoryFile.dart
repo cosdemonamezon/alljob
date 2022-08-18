@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:alljob/Screen/Alljob/Job/Widgets/RecordTexForm.dart';
 import 'package:alljob/Screen/Widgets/ButtonRounded.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SendHistoryFile extends StatefulWidget {
@@ -13,6 +17,8 @@ class _SendHistoryFileState extends State<SendHistoryFile> {
   bool isChecked = false;
   final GlobalKey<FormState> recordFormKey = GlobalKey<FormState>();
   final TextEditingController username = TextEditingController();
+  FilePickerResult? result;
+  PlatformFile? file;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -68,10 +74,21 @@ class _SendHistoryFileState extends State<SendHistoryFile> {
                         width: size.width * 0.75,
                         child: ButtonRounded(
                           text: 'เลือกไฟล์ (ทั้งหมดไม่เกิน 5 MB)',
-                          color: Colors.blue,
+                          color:
+                              file != null ? Colors.redAccent : Colors.blue,
                           textColor: Colors.white,
                           iconColor: Colors.white,
-                          onPressed: () {},
+                          onPressed: () async {
+                            result = await FilePicker.platform.pickFiles();
+                            setState(() {
+                              if (result != null) {
+                                file = result!.files.first;
+                                print(file);
+                              } else {
+                                print('No file');
+                              }
+                            });
+                          },
                         ),
                       ),
                     ),
@@ -119,7 +136,49 @@ class _SendHistoryFileState extends State<SendHistoryFile> {
                           color: Colors.blue,
                           textColor: Colors.white,
                           iconColor: Colors.white,
-                          onPressed: () {},
+                          onPressed: () {
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (context) => CupertinoAlertDialog(
+                                title: Text(
+                                  'ดำเนินการเรียบร้อย',
+                                  //style: TextStyle(fontFamily: fontFamily),
+                                ),
+                                content: Text(
+                                  'ต้องการออกจากหน้านี้หรือไม่',
+                                  //style: TextStyle(fontFamily: fontFamily),
+                                ),
+                                actions: <CupertinoDialogAction>[
+                                  CupertinoDialogAction(
+                                    child: Text(
+                                      'ยกเลิก',
+                                      // style: TextStyle(
+                                      //   color: kThemeTextColor,
+                                      //   fontFamily: fontFamily,
+                                      //   fontWeight: FontWeight.bold,
+                                      // ),
+                                    ),
+                                    onPressed: () =>
+                                        Navigator.pop(context, true),
+                                  ),
+                                  CupertinoDialogAction(
+                                    child: Text(
+                                      'ตกลง',
+                                      // style: TextStyle(
+                                      //   color: kThemeTextColor,
+                                      //   fontFamily: fontFamily,
+                                      // ),
+                                    ),
+                                    onPressed: () => Navigator.of(context)
+                                      ..pop()
+                                      ..pop()
+                                      ..pop()
+                                      ..pop(),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),

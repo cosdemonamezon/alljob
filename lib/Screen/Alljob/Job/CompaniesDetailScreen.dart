@@ -25,7 +25,7 @@ class _CompaniesDetailScreenState extends State<CompaniesDetailScreen> {
                   Container(
                     height: size.height * 0.12,
                     width: double.infinity,
-                    color: Colors.amber,
+                    color: Colors.blueAccent,
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: size.height * 0.02),
@@ -198,27 +198,33 @@ class _CompaniesDetailScreenState extends State<CompaniesDetailScreen> {
             SizedBox(
               height: 20,
             ),
-            Text(
-                '- ประกอบกิจการรับผลิตซอฟแวร์ที่ใช้ภายในองค์กร ระบบอีคอมเมิร์ส เวปไซต์เซลเพจ ระบบอีอาร์พี ระบบลงเวลาทำงาน และอื่นๆที่เกี่ยวกับ ซอฟแวร์'),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width*0.02),
+              child: Text(
+                  '- ประกอบกิจการรับผลิตซอฟแวร์ที่ใช้ภายในองค์กร ระบบอีคอมเมิร์ส เวปไซต์เซลเพจ ระบบอีอาร์พี ระบบลงเวลาทำงาน และอื่นๆที่เกี่ยวกับ ซอฟแวร์'),
+            ),
             SizedBox(
               height: 20,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    width: size.width * 0.55,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('ติดต่อ'),
-                        Text('คุณ ธวัชชัย มุ้งภูเขียว'),
-                        Text('Asha Tech Corporation Co.,Ltd'),
-                        Text('โทรศัพท์ : 0922568262'),
-                      ],
-                    )),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width*0.02),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                      width: size.width * 0.55,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('ติดต่อ'),
+                          Text('คุณ ธวัชชัย มุ้งภูเขียว'),
+                          Text('Asha Tech Corporation Co.,Ltd'),
+                          Text('โทรศัพท์ : 0922568262'),
+                        ],
+                      )),
+                ],
+              ),
             ),
             SizedBox(
               height: 20,

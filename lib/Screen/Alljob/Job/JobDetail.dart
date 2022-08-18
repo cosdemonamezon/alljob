@@ -37,6 +37,16 @@ class _JobDetailState extends State<JobDetail> with TickerProviderStateMixin {
     }
   }
 
+  void launchTel() async {
+    String url = 'tel://0922568260';
+    if (url != '') {
+      // ignore: deprecated_member_use
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -63,7 +73,7 @@ class _JobDetailState extends State<JobDetail> with TickerProviderStateMixin {
             labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.blue,
-            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+            labelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'NotoSansThai'),
             tabs: [
               Tab(text: 'รายละเอียด'),
               Tab(text: 'สมัครงาน'),
@@ -722,7 +732,9 @@ class _JobDetailState extends State<JobDetail> with TickerProviderStateMixin {
                           textColor: Colors.white,
                           iconImage: 'assets/icons/note-text.svg',
                           iconColor: Colors.white,
-                          onPressed: () {},
+                          onPressed: () {
+                            launchTel();
+                          },
                         ),
                       ),
                     ),
@@ -882,13 +894,17 @@ class _JobDetailState extends State<JobDetail> with TickerProviderStateMixin {
                                   Row(
                                     children: [
                                       IconButton(
-                                        onPressed: (){}, 
+                                        onPressed: (){
+                                          launchEmailSubmission();
+                                        }, 
                                         icon: Icon(Icons.email)),
                                       SizedBox(
                                         width:10,
                                       ),
                                       IconButton(
-                                        onPressed: (){}, 
+                                        onPressed: (){
+                                          launchTel();
+                                        }, 
                                         icon: Icon(Icons.phone)),
                                     ],
                                   ),
