@@ -130,10 +130,10 @@ class _JobScreenState extends State<JobScreen> {
               elevation: 0.5,
               floating: true,
               iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-              title: Text(
-                'All Job',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              // title: Text(
+              //   'All Job',
+              //   style: TextStyle(fontWeight: FontWeight.bold),
+              // ),
               centerTitle: true,
               automaticallyImplyLeading: false,
               leading: IconButton(
@@ -198,7 +198,7 @@ class _JobScreenState extends State<JobScreen> {
                     child: Card(
                       margin: EdgeInsets.zero,
                       elevation: 2,
-                      color: Color.fromARGB(255, 238, 236, 236),
+                      color: Color.fromARGB(255, 250, 248, 248),
                       shape: RoundedRectangleBorder(
                         side: BorderSide(
                           color: Color(0xFFF3F3F3),
@@ -223,10 +223,9 @@ class _JobScreenState extends State<JobScreen> {
                                       child: Text("POPULAR JOB",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold))),
-                                  Text(
-                                    'ดูทั้งหมด >',
-                                    style: TextStyle(color: Colors.blue),
-                                  ),
+                                  Text("ดูทั้งหมด",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600)),
                                 ],
                               ),
                               SizedBox(

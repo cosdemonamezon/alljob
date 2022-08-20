@@ -42,16 +42,13 @@ dependencies:
   http: ^0.13.4
   shared_preferences: ^2.0.15
   json_annotation: ^4.5.0
-<<<<<<< HEAD
   flutter_launcher_icons: ^0.10.0
+  file_picker: ^5.0.1
 
 flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/images/all-jobs-logo.jpg"
-=======
-  file_picker: ^5.0.1
->>>>>>> ba306b97a573378b6e9277fe6decfc853452430e
 
 dev_dependencies:
   flutter_test:

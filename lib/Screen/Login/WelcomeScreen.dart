@@ -25,9 +25,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             fit: BoxFit.cover,
           ),
           gradient: LinearGradient(
-            colors: [kLogin2Color, kLoginColor],
-            stops: [0.0, 0.7],
-          ),
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Color(0xFFffffff),
+                Color(0xFFd5e8f9),
+              ]),
         ),
       ),
       bottomNavigationBar: Container(

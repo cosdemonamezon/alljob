@@ -69,8 +69,8 @@ class _SplashScreenState extends State<SplashScreen> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
+                Color(0xFFffffff),
                 Color(0xFFd5e8f9),
-                Color(0xFF3085fc),
               ]),
         ),
         child: Column(
@@ -85,10 +85,10 @@ class _SplashScreenState extends State<SplashScreen> {
                   width: 300.0,
                 ),
                 Text(
-                  "A whole grocery store\n at your fingertips",
+                  "ยินดีต้อนรับเข้าสู่ระบบ",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.blue,
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
                   ),
@@ -96,7 +96,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ],
             ),
             CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             ),
           ],
         ),
