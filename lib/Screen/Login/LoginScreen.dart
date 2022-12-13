@@ -30,6 +30,10 @@ class _LoginScreenState extends State<LoginScreen> {
     final padding = MediaQuery.of(context).padding;
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       //extendBody: true,
       body: SafeArea(
         child: isLoadding == true

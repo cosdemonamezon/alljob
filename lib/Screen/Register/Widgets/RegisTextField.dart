@@ -39,7 +39,7 @@ class _RegisTextFieldState extends State<RegisTextField> {
     final appFontSize = AppFontSize.of(context);
     return TextFormField(
       controller: widget.controller,
-      // validator: widget.validator,
+      validator: widget.validator,
       // autovalidateMode: widget.validator != null ? AutovalidateMode.onUserInteraction : null,
       onChanged: widget.onChanged,
       style: TextStyle(fontSize: appFontSize?.body2),
@@ -65,7 +65,7 @@ class _RegisTextFieldState extends State<RegisTextField> {
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
         contentPadding: EdgeInsets.all(10),
-        fillColor: Color.fromARGB(255, 219, 228, 235),
+        fillColor: Colors.white,
         filled: true,
         hintText: widget.hintText,
         hintStyle: TextStyle(
@@ -74,15 +74,15 @@ class _RegisTextFieldState extends State<RegisTextField> {
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.white,
+            color: Colors.grey,
             width: 0,
           ),
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.white,
-            width: 0,
+            color: Colors.blue,
+            width: 2,
           ),
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:intl/date_symbol_data_local.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -14,6 +16,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('th');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'All Jobs',

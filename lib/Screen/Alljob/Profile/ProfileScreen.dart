@@ -1,8 +1,8 @@
-
 import 'package:alljob/Screen/Alljob/Notification/NotificationScreen.dart';
 import 'package:alljob/Screen/Alljob/Profile/ProfileDetailScreen.dart';
 import 'package:alljob/Screen/Alljob/Profile/SetAbout.dart';
 import 'package:alljob/Screen/Alljob/Profile/SetAddress.dart';
+import 'package:alljob/Screen/Alljob/Profile/SetEducationalRecord.dart';
 import 'package:alljob/Screen/Alljob/Profile/SetHelp.dart';
 import 'package:alljob/Screen/Alljob/Profile/SetLanguage.dart';
 import 'package:alljob/Screen/Alljob/Profile/SetPayment.dart';
@@ -109,7 +109,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     SizedBox(height: 10),
                     // Divider(color: Colors.grey),
+
                     TitleTextWidget(title: 'บัญชีของฉัน', size: size),
+                    SettingMenu(
+                      title: 'ประวัติการศึกษา',
+                      image: 'user',
+                      page: SetEducationalRecord(),
+                    ),
+                    Divider(color: Colors.grey),
                     SettingMenu(
                       title: 'จัดการที่อยู่',
                       image: 'mapSetting',

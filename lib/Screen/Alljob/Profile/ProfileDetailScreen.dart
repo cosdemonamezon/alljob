@@ -1,8 +1,12 @@
+import 'dart:io';
 
 import 'package:alljob/Screen/Widgets/PhoneFieldWidget.dart';
 import 'package:alljob/Screen/Widgets/TextFieldWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileDetailScreen extends StatefulWidget {
   ProfileDetailScreen({Key? key}) : super(key: key);
@@ -18,6 +22,56 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
   final TextEditingController email = TextEditingController();
   final TextEditingController phonenumber = TextEditingController();
   final TextEditingController address = TextEditingController();
+  File? _selectedFile;
+
+  Widget getImageWidget() {
+    if (_selectedFile != null) {
+      return CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 80,
+        child: ClipOval(
+          child: Image.file(
+            _selectedFile!,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    } else {
+      return CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 80,
+        child: ClipOval(
+          child: Image.asset(
+            'assets/icons/user.png',
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> getImage(ImageSource source) async {
+    try {
+      final XFile? image = await ImagePicker().pickImage(source: source);
+      if (image != null) {
+        final cropped = await ImageCropper().cropImage(
+          sourcePath: image.path,
+          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          compressQuality: 90,
+          maxHeight: 500,
+          maxWidth: 500,
+          compressFormat: ImageCompressFormat.jpg,
+        );
+
+        setState(() {
+          _selectedFile = File(cropped!.path);
+        });
+      }
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,31 +175,58 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
         child: ListView(
           primary: true,
           children: [
-            Text("Profile details", style: TextStyle(color: Colors.white)),
-            Text("Change the following details and save them",
-                style: TextStyle(color: Colors.white)),
+            // Text("Profile details", style: TextStyle(color: Colors.white)),
+            // Text("Change the following details and save them",
+            //     style: TextStyle(color: Colors.white)),
             //ImageFieldWidget(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Wrap(
-                alignment: WrapAlignment.start,
-                spacing: 5,
-                runSpacing: 8,
-                children: [
-                  Center(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      child: Image.asset(
-                        'assets/images/ALLZERVELogo.png',
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(vertical: 10),
+            //   child: Wrap(
+            //     alignment: WrapAlignment.start,
+            //     spacing: 5,
+            //     runSpacing: 8,
+            //     children: [
+            //       Center(
+            //         child: ClipRRect(
+            //           borderRadius: BorderRadius.all(Radius.circular(10)),
+            //           child: Image.asset(
+            //             'assets/images/ALLZERVELogo.png',
+            //             height: 100,
+            //             width: 100,
+            //             fit: BoxFit.fill,
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            Stack(
+              children: [
+                Center(
+                  child: getImageWidget(),
+                ),
+                Positioned(
+                  top: 130,
+                  left: 235,
+                  child: GestureDetector(
+                    onTap: () {
+                      getImage(ImageSource.gallery);
+                    },
+                    child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: Colors.grey,
+                        ),
+                        child: Icon(
+                          Icons.add_a_photo_outlined,
+                        )),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+
             TextFieldWidget(
               onSaved: (input) => username.text = input!,
               validator: (input) =>
