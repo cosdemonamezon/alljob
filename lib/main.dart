@@ -1,13 +1,22 @@
 import 'package:alljob/Screen/Login/WelcomeScreen.dart';
 import 'package:alljob/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
+
+import 'Screen/Alljob/Job/JobController.dart';
 
 void main() {
-  runApp(const MyApp());
+  configLoading();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => JobController()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -106,4 +115,21 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false;
+  // ..customAnimation = CustomAnimation();
 }

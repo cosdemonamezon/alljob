@@ -7,6 +7,10 @@ import 'package:alljob/Screen/Alljob/Job/Widgets/SlidelJobWidget.dart';
 import 'package:alljob/Screen/Alljob/Job/Widgets/TipsCarouselWidget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'JobController.dart';
+import 'detailCompany/detailCompany.dart';
 
 class JobScreen extends StatefulWidget {
   JobScreen({Key? key}) : super(key: key);
@@ -16,6 +20,17 @@ class JobScreen extends StatefulWidget {
 }
 
 class _JobScreenState extends State<JobScreen> {
+  late JobController jobController;
+  @override
+  void initState() {
+    _loadItem();
+    super.initState();
+  }
+
+  Future _loadItem() async {
+    await context.read<JobController>().loadLogoCompay();
+  }
+
   List<String> joblist = [
     'รับสมัครงาน ตำแหน่งโปรแกรมเมอร์',
     'รับสมัครงาน แอดมิน',
@@ -34,6 +49,8 @@ class _JobScreenState extends State<JobScreen> {
     {'name': 'Microsoft', 'img': 'assets/icons/microsoft.png'},
     {'name': 'XBOX', 'img': 'assets/icons/xbox.png'},
     {'name': 'Amazon', 'img': 'assets/icons/amazonlogo.png'},
+    {'name': 'LG', 'img': 'assets/icons/lg.png'},
+    {'name': 'LG', 'img': 'assets/icons/lg.png'},
     {'name': 'LG', 'img': 'assets/icons/lg.png'}
   ];
   List<Map<String, dynamic>> imageList = [
@@ -115,244 +132,324 @@ class _JobScreenState extends State<JobScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Job List'),
-      // ),
-      body: SafeArea(
-        child: CustomScrollView(
-          primary: true,
-          shrinkWrap: false,
-          slivers: [
-            SliverAppBar(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              expandedHeight: 300,
-              elevation: 0.5,
-              floating: true,
-              iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-              // title: Text(
-              //   'All Job',
-              //   style: TextStyle(fontWeight: FontWeight.bold),
-              // ),
-              centerTitle: true,
-              automaticallyImplyLeading: false,
-              leading: IconButton(
-                icon: Icon(Icons.sort, color: Colors.black87),
-                onPressed: () {},
-              ),
-              flexibleSpace: FlexibleSpaceBar(
-                collapseMode: CollapseMode.parallax,
-                background: Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 7),
-                        height: 360,
-                        viewportFraction: 1.0,
-                        onPageChanged: (index, reason) {},
+    return Consumer<JobController>(
+      builder: (context, controller, child) => Scaffold(
+        // appBar: AppBar(
+        //   title: Text('Job List'),
+        // ),
+        body: SafeArea(
+          child: CustomScrollView(
+            primary: true,
+            shrinkWrap: false,
+            slivers: [
+              SliverAppBar(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                expandedHeight: 300,
+                elevation: 0.5,
+                floating: true,
+                iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+                // title: Text(
+                //   'All Job',
+                //   style: TextStyle(fontWeight: FontWeight.bold),
+                // ),
+                centerTitle: true,
+                automaticallyImplyLeading: false,
+                leading: IconButton(
+                  icon: Icon(Icons.sort, color: Colors.black87),
+                  onPressed: () {},
+                ),
+                flexibleSpace: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.parallax,
+                  background: Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 7),
+                          height: 360,
+                          viewportFraction: 1.0,
+                          onPageChanged: (index, reason) {},
+                        ),
+                        items: slide.map((i) {
+                          return SlidelJobWidget(slide: i);
+                        }).toList(),
                       ),
-                      items: slide.map((i) {
-                        return SlidelJobWidget(slide: i);
-                      }).toList(),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Wrap(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Text("TOP COMPANIES",
-                                style: TextStyle(fontWeight: FontWeight.bold))),
-                        // MaterialButton(
-                        //   onPressed: () {},
-                        //   shape: StadiumBorder(),
-                        //   color:
-                        //       Color.fromARGB(255, 17, 95, 81).withOpacity(0.1),
-                        //   elevation: 0,
-                        //   child: Text("View All",
-                        //       style: TextStyle(fontWeight: FontWeight.w600)),
-                        // ),
-                      ],
-                    ),
-                  ),
-                  JobCarouselWidget(
-                    jobpartner: jobpartner,
-                    press: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CompanyScreen()));
-                    },
-                  ),
-                  SizedBox(height: 25),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    child: Card(
-                      margin: EdgeInsets.zero,
-                      elevation: 2,
-                      color: Color.fromARGB(255, 250, 248, 248),
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: Color(0xFFF3F3F3),
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
+              SliverToBoxAdapter(
+                child: Wrap(
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Text("TOP COMPANIES",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold))),
+                          // MaterialButton(
+                          //   onPressed: () {},
+                          //   shape: StadiumBorder(),
+                          //   color:
+                          //       Color.fromARGB(255, 17, 95, 81).withOpacity(0.1),
+                          //   elevation: 0,
+                          //   child: Text("View All",
+                          //       style: TextStyle(fontWeight: FontWeight.w600)),
+                          // ),
+                        ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                    ),
+                    Container(
+                      height: 130,
+                      margin: EdgeInsets.only(bottom: 15),
+                      child: ListView.builder(
+                          primary: false,
+                          shrinkWrap: false,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.logoCompay.length,
+                          itemBuilder: (_, index) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailCompany(
+                                              Id: controller
+                                                  .logoCompay[index].id!,
+                                            )));
+                              },
+                              child: Container(
+                                // width: 100,
+                                // height: 100,
+                                // margin: EdgeInsetsDirectional.only(
+                                //     end: 20, start: index == 0 ? 20 : 0),
+                                padding: EdgeInsets.symmetric(vertical: 10),
+                                // decoration: BoxDecoration(
+                                //   gradient: LinearGradient(
+                                //       colors: [
+                                //         Colors.blueAccent.withOpacity(0.7),
+                                //         Colors.blue.withOpacity(0.01)
+                                //       ],
+                                //       begin: AlignmentDirectional.topStart,
+                                //       //const FractionalOffset(1, 0),
+                                //       end: AlignmentDirectional.bottomEnd,
+                                //       stops: [0.1, 0.9],
+                                //       tileMode: TileMode.clamp),
+                                //   borderRadius: BorderRadius.all(Radius.circular(10)),
+                                // ),
+                                child: Stack(
+                                  alignment: AlignmentDirectional.topStart,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.only(
+                                          start: 30, top: 30),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        child: Image.network(
+                                          controller.logoCompay[index].image!,
+                                          //color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    // Padding(
+                                    //   padding:
+                                    //       const EdgeInsetsDirectional.only(start: 10, top: 0),
+                                    //   child: Text(
+                                    //     jobpartner![index]['name'],
+                                    //     maxLines: 2,
+                                    //     style: TextStyle(color: Colors.white),
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                    // JobCarouselWidget(
+                    //   jobpartner: jobpartner,
+                    //   press: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => CompanyScreen()));
+                    //   },
+                    // ),
+                    SizedBox(height: 25),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        elevation: 2,
+                        color: Color.fromARGB(255, 250, 248, 248),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Color(0xFFF3F3F3),
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                      child: Text("POPULAR JOB",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold))),
-                                  Text("ดูทั้งหมด",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600)),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Card(
-                                margin: EdgeInsets.zero,
-                                elevation: 0,
-                                color: Color.fromARGB(255, 255, 254, 254),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: SizedBox(
-                                    height: size.height * 0.06,
-                                    child: Row(
-                                      children: [
-                                        Text('งานทั้งหมด  100,000 อัตรา')
-                                      ],
+                          padding: const EdgeInsets.all(2.0),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                        child: Text("POPULAR JOB",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold))),
+                                    Text("ดูทั้งหมด",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600)),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Card(
+                                  margin: EdgeInsets.zero,
+                                  elevation: 0,
+                                  color: Color.fromARGB(255, 255, 254, 254),
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: SizedBox(
+                                      height: size.height * 0.06,
+                                      child: Row(
+                                        children: [
+                                          Text('งานทั้งหมด  100,000 อัตรา')
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Wrap(
-                                spacing: 10,
-                                children: List.generate(
-                                    poppular.length,
-                                    (index) => Padding(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 5),
-                                          child: CardJobWidget(
-                                            size: size,
-                                            poppular: poppular,
-                                            index: index,
-                                          ),
-                                        )),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Wrap(
+                                  spacing: 10,
+                                  children: List.generate(
+                                      poppular.length,
+                                      (index) => Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5),
+                                            child: CardJobWidget(
+                                              size: size,
+                                              poppular: poppular,
+                                              index: index,
+                                            ),
+                                          )),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 25),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Text("HIGHLIGHT JOBS",
-                                style: TextStyle(fontWeight: FontWeight.bold))),
-                      ],
+                    SizedBox(height: 25),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Text("HIGHLIGHT JOBS",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold))),
+                        ],
+                      ),
                     ),
-                  ),
-                  ImageCarouselWidget(
-                    press: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => JobDetail()));
-                    },
-                    image: imageList,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Text("TIPS & UPDATES",
-                                style: TextStyle(fontWeight: FontWeight.bold))),
-                        MaterialButton(
-                          onPressed: () {},
-                          shape: StadiumBorder(),
-                          color:
-                              Color.fromARGB(255, 17, 95, 81).withOpacity(0.1),
-                          elevation: 0,
-                          child: Text("ดูทั้งหมด",
-                              style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),
-                      ],
+                    ImageCarouselWidget(
+                      press: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => JobDetail()));
+                      },
+                      image: imageList,
                     ),
-                  ),
-                  TipsCarouselWidget(
-                    tips: tips,
-                  ),
-                  SizedBox(
-                    height: 300,
-                  ),
-                ],
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Text("TIPS & UPDATES",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold))),
+                          MaterialButton(
+                            onPressed: () {},
+                            shape: StadiumBorder(),
+                            color: Color.fromARGB(255, 17, 95, 81)
+                                .withOpacity(0.1),
+                            elevation: 0,
+                            child: Text("ดูทั้งหมด",
+                                style: TextStyle(fontWeight: FontWeight.w600)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    TipsCarouselWidget(
+                      tips: tips,
+                    ),
+                    SizedBox(
+                      height: 300,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
+          // child: SingleChildScrollView(
+          //   child: Column(
+          //     children: [
+          //       Padding(
+          //         padding: EdgeInsets.symmetric(horizontal: 10),
+          //         child: SearchTextField(),
+          //       ),
+          //       SizedBox(
+          //         height: 10,
+          //       ),
+          //       ListView.builder(
+          //         shrinkWrap: true,
+          //         physics: NeverScrollableScrollPhysics(),
+          //         itemCount: 10,
+          //         itemBuilder: (BuildContext context, int i) {
+          //           return Padding(
+          //             padding: EdgeInsets.symmetric(vertical: 3),
+          //             child: ListCard(
+          //               title: joblist[i],
+          //               press: () {
+          //                 Navigator.push(
+          //                     context,
+          //                     MaterialPageRoute(
+          //                         builder: (context) => JobDetail()));
+          //               },
+          //             ),
+          //           );
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ),
-        // child: SingleChildScrollView(
-        //   child: Column(
-        //     children: [
-        //       Padding(
-        //         padding: EdgeInsets.symmetric(horizontal: 10),
-        //         child: SearchTextField(),
-        //       ),
-        //       SizedBox(
-        //         height: 10,
-        //       ),
-        //       ListView.builder(
-        //         shrinkWrap: true,
-        //         physics: NeverScrollableScrollPhysics(),
-        //         itemCount: 10,
-        //         itemBuilder: (BuildContext context, int i) {
-        //           return Padding(
-        //             padding: EdgeInsets.symmetric(vertical: 3),
-        //             child: ListCard(
-        //               title: joblist[i],
-        //               press: () {
-        //                 Navigator.push(
-        //                     context,
-        //                     MaterialPageRoute(
-        //                         builder: (context) => JobDetail()));
-        //               },
-        //             ),
-        //           );
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }

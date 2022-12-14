@@ -1,4 +1,3 @@
-
 import 'package:alljob/Screen/Alljob/Companies/JobCompanyScreen.dart';
 import 'package:alljob/Screen/Alljob/Companies/Widgets/CompaniesList.dart';
 import 'package:alljob/Screen/Widgets/SearchTextField.dart';

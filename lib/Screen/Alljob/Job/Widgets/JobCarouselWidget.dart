@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class JobCarouselWidget extends StatelessWidget {
   List<Map<String, dynamic>>? jobpartner;
   VoidCallback press;
-  JobCarouselWidget({Key? key, this.jobpartner, required this.press}) : super(key: key);
+  JobCarouselWidget({Key? key, this.jobpartner, required this.press})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +52,15 @@ class JobCarouselWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.only(start: 10, top: 0),
-                      child: Text(
-                        jobpartner![index]['name'],
-                        maxLines: 2,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding:
+                    //       const EdgeInsetsDirectional.only(start: 10, top: 0),
+                    //   child: Text(
+                    //     jobpartner![index]['name'],
+                    //     maxLines: 2,
+                    //     style: TextStyle(color: Colors.white),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

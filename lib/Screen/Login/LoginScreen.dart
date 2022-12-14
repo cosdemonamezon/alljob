@@ -1,8 +1,12 @@
 import 'package:alljob/Screen/Alljob/AlljobHome.dart';
+import 'package:alljob/Screen/Login/LoginService.dart';
 import 'package:alljob/Screen/Login/Widgets/AppTextForm.dart';
 import 'package:alljob/Screen/Widgets/ButtonRounded.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../models/login/login.dart';
+import '../Widgets/LoadingDialog.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -12,11 +16,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   bool isLoadding = false;
+
+  void initState() {
+    super.initState();
+    _initPrefs();
+  }
+
+  _initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
 
   @override
   void dispose() {
@@ -24,6 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
     email.dispose();
     password.dispose();
   }
+
+  SharedPreferences? prefs;
 
   @override
   Widget build(BuildContext context) {
@@ -99,9 +113,43 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: 'Login',
                       color: Colors.blue,
                       textColor: Colors.white,
-                      onPressed: () {
-                        //login(context);
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> AlljobHome()));
+                      onPressed: () async {
+                        try {
+                          LoadingDialog.open(context);
+                          final String _email = email.text;
+                          final String _password = password.text;
+                          final Login? login =
+                              await LoginService().loginUser(_email, _password);
+                          if (login != null) {
+                            await prefs!.setString('token', login.token!);
+                            if (!mounted) return;
+                            LoadingDialog.close(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AlljobHome()));
+                          }
+                        } catch (e) {
+                          LoadingDialog.close(context);
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              backgroundColor: Colors.blueAccent,
+                              title: Text("Error",
+                                  style: TextStyle(color: Colors.white)),
+                              content: Text(e.toString(),
+                                  style: TextStyle(color: Colors.white)),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('OK',
+                                        style: TextStyle(color: Colors.white)))
+                              ],
+                            ),
+                          );
+                        }
                       },
                     ),
                     SizedBox(height: 25),
@@ -128,28 +176,26 @@ class _LoginScreenState extends State<LoginScreen> {
   //   final response =
   //       await LoginApi.login(email: email.text, password: password.text);
   //   if (response['status_api']) {
-  //     await prefs.setString('token', response['token']);      
-        
-  //       Future.delayed(Duration(seconds: 3), () {
-  //         setState(() {
-  //             isLoadding = false;
-  //           });
-  //         if (response['data']['firstName'] == 'allserve') {
-  //             Navigator.pushReplacement(context,
-  //                 MaterialPageRoute(builder: (context) => AllServeHome()));
-  //           } else if (response['data']['firstName'] == 'alljob') {
-  //             Navigator.pushReplacement(context,
-  //                 MaterialPageRoute(builder: (context) => AlljobHome()));
-  //           } else if (response['data']['firstName'] == 'allpartner') {
-  //             Navigator.pushReplacement(context,
-  //                 MaterialPageRoute(builder: (context) => AllPartnerHome()));
-  //           } else {
-  //             Navigator.pushReplacement(context,
-  //                 MaterialPageRoute(builder: (context) => AllPartnerHome()));
-  //           }
-          
+  //     await prefs.setString('token', response['token']);
+
+  //     Future.delayed(Duration(seconds: 3), () {
+  //       setState(() {
+  //         isLoadding = false;
   //       });
-      
+  //       if (response['data']['firstName'] == 'allserve') {
+  //         Navigator.pushReplacement(
+  //             context, MaterialPageRoute(builder: (context) => AllServeHome()));
+  //       } else if (response['data']['firstName'] == 'alljob') {
+  //         Navigator.pushReplacement(
+  //             context, MaterialPageRoute(builder: (context) => AlljobHome()));
+  //       } else if (response['data']['firstName'] == 'allpartner') {
+  //         Navigator.pushReplacement(context,
+  //             MaterialPageRoute(builder: (context) => AllPartnerHome()));
+  //       } else {
+  //         Navigator.pushReplacement(context,
+  //             MaterialPageRoute(builder: (context) => AllPartnerHome()));
+  //       }
+  //     });
   //   } else {
   //     print(response);
   //   }
