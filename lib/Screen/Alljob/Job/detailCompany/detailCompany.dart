@@ -105,124 +105,139 @@ class _DetailCompanyState extends State<DetailCompany> {
                 height: 10,
               ),
               Container(
-                padding: EdgeInsets.all(15),
-                child: ListView.builder(
-                    controller: _controller,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: controller
-                        .positionCompany[0].recruitment_companies?.length,
-                    itemBuilder: (_, index) {
-                      final recruitment_companies = controller
-                          .positionCompany[0].recruitment_companies?[index];
-                      return recruitment_companies == null
-                          ? Center(child: CircularProgressIndicator())
-                          : Stack(
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    width: size.width,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/promotionBG.png'),
-                                        fit: BoxFit.fill,
-                                      ),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            offset: Offset(0, 2),
-                                            color: Color.fromRGBO(
-                                                0, 78, 179, 0.05),
-                                            blurRadius: 10)
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 20, horizontal: 10),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 2,
-                                            child: controller.positionCompany[0]
-                                                        .compay?.image !=
-                                                    null
-                                                ? Image.network(
-                                                    "${controller.positionCompany[0].compay?.image}",
-                                                    height: size.height / 17,
-                                                    errorBuilder: (context,
-                                                            error,
-                                                            stackTrace) =>
-                                                        Image.asset(
-                                                            'assets/images/No_Image_Available.jpg'),
-                                                  )
-                                                : Image.asset(
-                                                    'assets/images/No_Image_Available.jpg'),
+                  padding: EdgeInsets.all(15),
+                  child: controller.positionCompany.isNotEmpty &&
+                          controller.positionCompany[0].recruitment_companies!
+                                  .length !=
+                              null
+                      ? ListView.builder(
+                          controller: _controller,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: controller
+                              .positionCompany[0].recruitment_companies!.length,
+                          itemBuilder: (_, index) {
+                            final recruitment_companies = controller
+                                .positionCompany[0]
+                                .recruitment_companies?[index];
+                            return recruitment_companies == null
+                                ? Center(child: CircularProgressIndicator())
+                                : Stack(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Container(
+                                          width: size.width,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/images/promotionBG.png'),
+                                              fit: BoxFit.fill,
+                                            ),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  offset: Offset(0, 2),
+                                                  color: Color.fromRGBO(
+                                                      0, 78, 179, 0.05),
+                                                  blurRadius: 10)
+                                            ],
                                           ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                            flex: 8,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 5),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    recruitment_companies
-                                                            .position ??
-                                                        '',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize:
-                                                            appFontSize?.body),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 20, horizontal: 10),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: controller
+                                                              .positionCompany[
+                                                                  0]
+                                                              .compay
+                                                              ?.image !=
+                                                          null
+                                                      ? Image.network(
+                                                          "${controller.positionCompany[0].compay?.image}",
+                                                          height:
+                                                              size.height / 17,
+                                                          errorBuilder: (context,
+                                                                  error,
+                                                                  stackTrace) =>
+                                                              Image.asset(
+                                                                  'assets/images/No_Image_Available.jpg'),
+                                                        )
+                                                      : Image.asset(
+                                                          'assets/images/No_Image_Available.jpg'),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Expanded(
+                                                  flex: 8,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 5),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          recruitment_companies
+                                                                  .position ??
+                                                              '',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize:
+                                                                  appFontSize
+                                                                      ?.body),
+                                                        ),
+                                                        SizedBox(height: 5),
+                                                        Text(
+                                                          'เงินเดือน ${recruitment_companies.salary ?? ''}',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  appFontSize
+                                                                      ?.body2),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                        SizedBox(height: 4),
+                                                        Text(
+                                                          'ว่าง ${recruitment_companies.qty ?? ''} ตำแหน่ง',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  appFontSize
+                                                                      ?.body2),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                        SizedBox(height: 4),
+                                                        Text(
+                                                          'ลักษณะงาน ${recruitment_companies.description ?? ''}',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  appFontSize
+                                                                      ?.body2),
+                                                          // overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                        SizedBox(height: 4),
+                                                      ],
+                                                    ),
                                                   ),
-                                                  SizedBox(height: 5),
-                                                  Text(
-                                                    'เงินเดือน ${recruitment_companies.salary ?? ''}',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            appFontSize?.body2),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                  SizedBox(height: 4),
-                                                  Text(
-                                                    'ว่าง ${recruitment_companies.qty ?? ''} ตำแหน่ง',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            appFontSize?.body2),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                  SizedBox(height: 4),
-                                                  Text(
-                                                    'ลักษณะงาน ${recruitment_companies.description ?? ''}',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            appFontSize?.body2),
-                                                    // overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                  SizedBox(height: 4),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                    }),
-              ),
+                                    ],
+                                  );
+                          })
+                      : Center(child: CircularProgressIndicator())),
               // ListView(
               //   scrollDirection: Axis.vertical,
               //   shrinkWrap: true,
