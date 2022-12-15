@@ -13,14 +13,14 @@ class CompanyScreen extends StatefulWidget {
 
 class _CompanyScreenState extends State<CompanyScreen> {
   List companydata = [
-    {
-      "title": "Amazon.com",
-      "imageUrl": "assets/icons/amazon.png",
-      "rating": "4.8",
-      "location": "New york, USA",
-      "vacancy": "1 Vacancy",
-      "price": "8,000 - 23,000"
-    },
+    // {
+    //   "title": "Amazon.com",
+    //   "imageUrl": "assets/icons/amazon.png",
+    //   "rating": "4.8",
+    //   "location": "New york, USA",
+    //   "vacancy": "1 Vacancy",
+    //   "price": "8,000 - 23,000"
+    // },
     {
       "title": "Bank of America",
       "imageUrl": "assets/icons/bankofamerica.png",

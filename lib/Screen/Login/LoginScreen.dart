@@ -122,12 +122,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               await LoginService().loginUser(_email, _password);
                           if (login != null) {
                             await prefs!.setString('token', login.token!);
+                            await prefs!
+                                .setString('member_id', login.id.toString());
                             if (!mounted) return;
                             LoadingDialog.close(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AlljobHome()));
+                            Navigator.pushAndRemoveUntil(context,
+                                MaterialPageRoute(builder: (context) {
+                              return AlljobHome();
+                            }), (route) => false);
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => AlljobHome()));
                           }
                         } catch (e) {
                           LoadingDialog.close(context);

@@ -8,11 +8,13 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 
 import 'Screen/Alljob/Job/JobController.dart';
+import 'Screen/app/AppController.dart';
 
 void main() {
   configLoading();
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (_) => AppController()),
       ChangeNotifierProvider(create: (_) => JobController()),
     ],
     child: const MyApp(),

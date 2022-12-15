@@ -102,7 +102,7 @@ class _OtpPageState extends State<OtpPage> {
                 });
                 if (code.length > 5) {
                   try {
-                    final User? user = await RegisterService().setInformation(
+                    await RegisterService().setInformation(
                       email: widget.userdata!['email'],
                       username: widget.userdata!['email'],
                       name: widget.userdata!['name'],
@@ -112,10 +112,12 @@ class _OtpPageState extends State<OtpPage> {
                       marital: widget.userdata!['marital'],
                       password: widget.userdata!['password'],
                     );
-                    Navigator.pushAndRemoveUntil(context,
-                        MaterialPageRoute(builder: (context) {
-                      return WelcomeScreen();
-                    }), (route) => false);
+                    if (mounted) {
+                      Navigator.pushAndRemoveUntil(context,
+                          MaterialPageRoute(builder: (context) {
+                        return WelcomeScreen();
+                      }), (route) => false);
+                    }
                   } catch (e) {
                     showDialog(
                       context: context,

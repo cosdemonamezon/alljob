@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,8 +26,10 @@ class JobService {
       final list = data['data'] as List;
 
       return list.map((e) => Compay.fromJson(e)).toList();
+    } else {
+      final data = convert.jsonDecode(response.body);
+      throw Exception(data['message']);
     }
-    return [];
   }
 
   static Future<List<Position>> getPosition({required int companyId}) async {
@@ -44,8 +47,10 @@ class JobService {
       final list = data['data'] as List;
 
       return list.map((e) => Position.fromJson(e)).toList();
+    } else {
+      final data = convert.jsonDecode(response.body);
+      throw Exception(data['message']);
     }
-    return [];
   }
 
   // Future<Position?> getCompany({required int companyId}) async {

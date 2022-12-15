@@ -116,9 +116,8 @@ class _DetailCompanyState extends State<DetailCompany> {
                     itemBuilder: (_, index) {
                       final recruitment_companies = controller
                           .positionCompany[0].recruitment_companies?[index];
-
                       return recruitment_companies == null
-                          ? SizedBox.shrink()
+                          ? Center(child: CircularProgressIndicator())
                           : Stack(
                               children: [
                                 InkWell(
