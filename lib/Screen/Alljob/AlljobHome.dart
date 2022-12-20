@@ -1,10 +1,11 @@
-
 import 'package:alljob/Screen/Alljob/Companies/CompanyScreen.dart';
 import 'package:alljob/Screen/Alljob/Job/JobScreen.dart';
 import 'package:alljob/Screen/Alljob/Notification/NotificationScreen.dart';
 import 'package:alljob/Screen/Alljob/Profile/ProfileScreen.dart';
 import 'package:alljob/Screen/Alljob/Search/SearchScreen.dart';
 import 'package:flutter/material.dart';
+
+import 'matchScreen/matchPage.dart';
 
 class AlljobHome extends StatefulWidget {
   AlljobHome({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _AlljobHomeState extends State<AlljobHome> {
         children: [
           JobScreen(),
           CompanyScreen(),
-          NotificationScreen(),
+          MatchPage(),
           SearchScreen(),
           ProfileScreen(),
         ],

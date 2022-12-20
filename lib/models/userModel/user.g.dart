@@ -18,6 +18,9 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       age: json['age'] as String?,
       gender: json['gender'] as String?,
       marital: json['marital'] as String?,
+      meetings: (json['meetings'] as List<dynamic>?)
+          ?.map((e) => Meetings.fromJson(e as Map<String, dynamic>))
+          .toList(),
       user_job_detail: (json['user_job_detail'] as List<dynamic>?)
           ?.map((e) => UserDetailJob.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -35,5 +38,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'age': instance.age,
       'gender': instance.gender,
       'marital': instance.marital,
+      'meetings': instance.meetings,
       'user_job_detail': instance.user_job_detail,
     };

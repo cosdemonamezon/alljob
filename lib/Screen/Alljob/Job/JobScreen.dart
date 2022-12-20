@@ -9,6 +9,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/AppController.dart';
 import 'JobController.dart';
 import 'detailCompany/detailCompany.dart';
 
@@ -29,6 +30,7 @@ class _JobScreenState extends State<JobScreen> {
 
   Future _loadItem() async {
     await context.read<JobController>().loadLogoCompay();
+    await context.read<AppController>().initialize();
   }
 
   List<String> joblist = [
@@ -45,14 +47,14 @@ class _JobScreenState extends State<JobScreen> {
   ];
 
   List slide = ['assets/images/HR.png', 'assets/images/HRR2.png'];
-  List<Map<String, dynamic>> jobpartner = [
-    {'name': 'Microsoft', 'img': 'assets/icons/microsoft.png'},
-    {'name': 'XBOX', 'img': 'assets/icons/xbox.png'},
-    {'name': 'Amazon', 'img': 'assets/icons/amazonlogo.png'},
-    {'name': 'LG', 'img': 'assets/icons/lg.png'},
-    {'name': 'LG', 'img': 'assets/icons/lg.png'},
-    {'name': 'LG', 'img': 'assets/icons/lg.png'}
-  ];
+  // List<Map<String, dynamic>> jobpartner = [
+  //   {'name': 'Microsoft', 'img': 'assets/icons/microsoft.png'},
+  //   {'name': 'XBOX', 'img': 'assets/icons/xbox.png'},
+  //   {'name': 'Amazon', 'img': 'assets/icons/amazonlogo.png'},
+  //   {'name': 'LG', 'img': 'assets/icons/lg.png'},
+  //   {'name': 'LG', 'img': 'assets/icons/lg.png'},
+  //   {'name': 'LG', 'img': 'assets/icons/lg.png'}
+  // ];
   List<Map<String, dynamic>> imageList = [
     {'img': 'assets/images/Interesting.png'},
     {'img': 'assets/images/resume.png'},
@@ -69,8 +71,7 @@ class _JobScreenState extends State<JobScreen> {
           'กิจกรรม 5ส เป็นกระบวนการหนึ่งที่เป็นระบบมีแนวปฏิบัติ ที่เหมาะสมสามารถนำมาใช้เพื่อปรับปรุงแก้ไขงานและรักษาสิ่งแวดล้อมในสถานที่ทำงานให้ดีขึ้น',
     },
     {
-      'title':
-          'หากคุณต้องการเปลี่ยนทักษะการขายของคุณให้เป็นไปตามมาตรฐานองค์กรระดับโลก',
+      'title': 'หากคุณต้องการเปลี่ยนทักษะการขายของคุณให้เป็นไปตามมาตรฐานองค์กรระดับโลก',
       'img': 'assets/images/image27.png',
       'subtitle':
           'เชิญคุณมาเรียนรู้เคล็ดลับที่จะเปลี่ยนคุณจากสถานภาพนักขายที่ต้องวิ่งไล่ล่าลูกค้า ให้กลายมาเป็นที่ปรึกษาที่ใคร ๆ ก็ต้องเรียกตัว นี่คือคอร์สที่มีเนื้อหาจากการทดลองทำจริงกว่า 15 ปี รวบรวมเนื้อหาและประสบการณ์ตรงจาก Sales Director',
@@ -82,11 +83,9 @@ class _JobScreenState extends State<JobScreen> {
           'การแพร่ระบาดของโรคกลายเป็นปัญหาของโลกที่กำลังเจอกับปัญหาเศรษฐกิจที่พ่วงท้ายมากับโรคระบาด ทั้งธุรกิจออนไลน์หรือออฟไลน์ต่างได้รับผลกระทบเรื่องยอดขายตกกันทั้งนั้น!',
     },
     {
-      'title':
-          'เข้าถึงกลุ่มเป้าหมายใหม่และขับเคลื่อนผลลัพธ์ให้มีประสิทธิภาพมากขึ้นด้วยตัวจัดการโฆษณา TikTok',
+      'title': 'เข้าถึงกลุ่มเป้าหมายใหม่และขับเคลื่อนผลลัพธ์ให้มีประสิทธิภาพมากขึ้นด้วยตัวจัดการโฆษณา TikTok',
       'img': 'assets/images/images25.png',
-      'subtitle':
-          'วิเคราะห์ข้อมูลที่ลูกค้า และ ผู้มีอิทธิพลทางความคิด (KOL) กล่าวถึงแบรนด์ของคุณในรูปแบบกราฟ',
+      'subtitle': 'วิเคราะห์ข้อมูลที่ลูกค้า และ ผู้มีอิทธิพลทางความคิด (KOL) กล่าวถึงแบรนด์ของคุณในรูปแบบกราฟ',
     }
   ];
 
@@ -154,10 +153,10 @@ class _JobScreenState extends State<JobScreen> {
                 // ),
                 centerTitle: true,
                 automaticallyImplyLeading: false,
-                leading: IconButton(
-                  icon: Icon(Icons.sort, color: Colors.black87),
-                  onPressed: () {},
-                ),
+                // leading: IconButton(
+                //   icon: Icon(Icons.sort, color: Colors.black87),
+                //   onPressed: () {},
+                // ),
                 flexibleSpace: FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
                   background: Stack(
@@ -183,14 +182,10 @@ class _JobScreenState extends State<JobScreen> {
                 child: Wrap(
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       child: Row(
                         children: [
-                          Expanded(
-                              child: Text("TOP COMPANIES",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
+                          Expanded(child: Text("TOP COMPANIES", style: TextStyle(fontWeight: FontWeight.bold))),
                           // MaterialButton(
                           //   onPressed: () {},
                           //   shape: StadiumBorder(),
@@ -203,71 +198,66 @@ class _JobScreenState extends State<JobScreen> {
                         ],
                       ),
                     ),
+
                     Container(
-                      height: 130,
-                      margin: EdgeInsets.only(bottom: 15),
+                      height: 100,
+                      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                       child: ListView.builder(
-                          primary: false,
-                          shrinkWrap: false,
+                          // primary: false,
+                          shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           itemCount: controller.logoCompay.length,
                           itemBuilder: (_, index) {
-                            return InkWell(
+                            return GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => DetailCompany(
-                                              Id: controller
-                                                  .logoCompay[index].id!,
+                                              id: controller.logoCompay[index].id!,
+                                              name: controller.logoCompay[index].name!,
                                             )));
                               },
-                              child: Container(
-                                // width: 100,
-                                // height: 100,
-                                // margin: EdgeInsetsDirectional.only(
-                                //     end: 20, start: index == 0 ? 20 : 0),
-                                padding: EdgeInsets.symmetric(vertical: 10),
-                                // decoration: BoxDecoration(
-                                //   gradient: LinearGradient(
-                                //       colors: [
-                                //         Colors.blueAccent.withOpacity(0.7),
-                                //         Colors.blue.withOpacity(0.01)
-                                //       ],
-                                //       begin: AlignmentDirectional.topStart,
-                                //       //const FractionalOffset(1, 0),
-                                //       end: AlignmentDirectional.bottomEnd,
-                                //       stops: [0.1, 0.9],
-                                //       tileMode: TileMode.clamp),
-                                //   borderRadius: BorderRadius.all(Radius.circular(10)),
-                                // ),
-                                child: Stack(
-                                  alignment: AlignmentDirectional.topStart,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.only(
-                                          start: 30, top: 30),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                        child: Image.network(
-                                          controller.logoCompay[index].image!,
-                                          //color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    // Padding(
-                                    //   padding:
-                                    //       const EdgeInsetsDirectional.only(start: 10, top: 0),
-                                    //   child: Text(
-                                    //     jobpartner![index]['name'],
-                                    //     maxLines: 2,
-                                    //     style: TextStyle(color: Colors.white),
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
+                              child: CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                radius: 60,
+                                child: ClipOval(
+                                    child: Image.network(
+                                  controller.logoCompay[index].image!,
+                                  width: 100,
+                                  height: 100,
+                                  errorBuilder: (context, error, stackTrace) => Center(
+                                    child: Image.asset('assets/images/No_Image_Available.jpg'),
+                                  ),
+                                )),
                               ),
+                              // child: Container(
+                              //   padding: EdgeInsets.all(10),
+                              //   child: ClipRRect(
+                              //     borderRadius:
+                              //         BorderRadius.all(Radius.circular(10)),
+                              //     child: Image.network(
+                              //       controller.logoCompay[index].image!,
+                              //       height: 100,
+                              //       width: 180,
+                              //     ),
+                              //   ),
+                              //   SizedBox(
+                              //     child: CircleAvatar(
+                              //       radius: 30,
+                              //       child: ClipOval(
+                              //           child: Image.network(
+                              //         '${controller.ownerGuild!.guild!.guildImage}',
+                              //         errorBuilder:
+                              //             (context, error, stackTrace) =>
+                              //                 Center(
+                              //           child: Image.asset(
+                              //               'assets/No_Image_Available.jpg'),
+                              //         ),
+                              //       )),
+                              //     ),
+                              //   ),
+                              // ),
                             );
                           }),
                     ),
@@ -280,10 +270,9 @@ class _JobScreenState extends State<JobScreen> {
                     //             builder: (context) => CompanyScreen()));
                     //   },
                     // ),
-                    SizedBox(height: 25),
+                    // SizedBox(height: 30),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
                       child: Card(
                         margin: EdgeInsets.zero,
                         elevation: 2,
@@ -305,16 +294,10 @@ class _JobScreenState extends State<JobScreen> {
                                   height: 5,
                                 ),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Expanded(
-                                        child: Text("POPULAR JOB",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold))),
-                                    Text("ดูทั้งหมด",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600)),
+                                    Expanded(child: Text("POPULAR JOB", style: TextStyle(fontWeight: FontWeight.bold))),
+                                    Text("ดูทั้งหมด", style: TextStyle(fontWeight: FontWeight.w600)),
                                   ],
                                 ),
                                 SizedBox(
@@ -325,14 +308,11 @@ class _JobScreenState extends State<JobScreen> {
                                   elevation: 0,
                                   color: Color.fromARGB(255, 255, 254, 254),
                                   child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10),
+                                    padding: EdgeInsets.symmetric(horizontal: 10),
                                     child: SizedBox(
                                       height: size.height * 0.06,
                                       child: Row(
-                                        children: [
-                                          Text('งานทั้งหมด  100,000 อัตรา')
-                                        ],
+                                        children: [Text('งานทั้งหมด  100,000 อัตรา')],
                                       ),
                                     ),
                                   ),
@@ -345,8 +325,7 @@ class _JobScreenState extends State<JobScreen> {
                                   children: List.generate(
                                       poppular.length,
                                       (index) => Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5),
+                                            padding: EdgeInsets.symmetric(vertical: 5),
                                             child: CardJobWidget(
                                               size: size,
                                               poppular: poppular,
@@ -365,43 +344,30 @@ class _JobScreenState extends State<JobScreen> {
                     ),
                     SizedBox(height: 25),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: Row(
                         children: [
-                          Expanded(
-                              child: Text("HIGHLIGHT JOBS",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
+                          Expanded(child: Text("HIGHLIGHT JOBS", style: TextStyle(fontWeight: FontWeight.bold))),
                         ],
                       ),
                     ),
                     ImageCarouselWidget(
                       press: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => JobDetail()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => JobDetail()));
                       },
                       image: imageList,
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: Row(
                         children: [
-                          Expanded(
-                              child: Text("TIPS & UPDATES",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
+                          Expanded(child: Text("TIPS & UPDATES", style: TextStyle(fontWeight: FontWeight.bold))),
                           MaterialButton(
                             onPressed: () {},
                             shape: StadiumBorder(),
-                            color: Color.fromARGB(255, 17, 95, 81)
-                                .withOpacity(0.1),
+                            color: Color.fromARGB(255, 17, 95, 81).withOpacity(0.1),
                             elevation: 0,
-                            child: Text("ดูทั้งหมด",
-                                style: TextStyle(fontWeight: FontWeight.w600)),
+                            child: Text("ดูทั้งหมด", style: TextStyle(fontWeight: FontWeight.w600)),
                           ),
                         ],
                       ),
@@ -482,8 +448,7 @@ class CardJobWidget extends StatelessWidget {
           minVerticalPadding: 1,
           visualDensity: VisualDensity.compact,
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PositionScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => PositionScreen()));
           },
           title: Text(
             poppular[index]['title'],

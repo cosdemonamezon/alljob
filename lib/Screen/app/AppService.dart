@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../constants/constants.dart';
 import '../../models/userModel/user.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +17,12 @@ class AppService {
 
     if (response.statusCode == 200) {
       final data = convert.jsonDecode(response.body);
+
+      final meetings = data['data']['meetings'] as List;
+      final m = meetings.map((e) {
+        e['isAccept'] = false;
+        return e;
+      }).toList();
       return User.fromJson(data['data']);
     } else {
       final data = convert.jsonDecode(response.body);

@@ -118,103 +118,86 @@ class _CompanyScreenState extends State<CompanyScreen> {
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: controller.logoCompay.length,
                     itemBuilder: (_, index) {
-                      return Stack(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetailCompany(
-                                            Id: controller
-                                                .logoCompay[index].id!,
-                                          )));
-                            },
-                            child: Container(
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/promotionBG.png'),
-                                  fit: BoxFit.fill,
-                                ),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      offset: Offset(0, 2),
-                                      color: Color.fromRGBO(0, 78, 179, 0.05),
-                                      blurRadius: 10)
-                                ],
+                      return Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailCompany(
+                                          id: controller.logoCompay[index].id!,
+                                          name: controller.logoCompay[index].name!,
+                                        )));
+                          },
+                          child: Container(
+                            width: size.width,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/promotionBG.png'),
+                                fit: BoxFit.fill,
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 10),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                        flex: 2,
-                                        child: Image.network(
-                                          "${controller.logoCompay[index].image}",
-                                          height: size.height / 17,
-                                          errorBuilder: (context, error,
-                                                  stackTrace) =>
-                                              Image.asset(
-                                                  'assets/images/No_Image_Available.jpg'),
-                                        )
-                                        // : Image.asset(
-                                        //     'assets/images/No_Image_Available.jpg'),
-                                        ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      flex: 8,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              controller.logoCompay[index]
-                                                      .username ??
-                                                  '',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: appFontSize?.body),
-                                            ),
-                                            SizedBox(height: 5),
-                                            Text(
-                                              'เบอร์โทรศัพท์ ${controller.logoCompay[index].phone ?? ''}',
-                                              style: TextStyle(
-                                                  fontSize: appFontSize?.body2),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(height: 4),
-                                            Text(
-                                              'ความต้องการ ${controller.logoCompay[index].status ?? ''} ',
-                                              style: TextStyle(
-                                                  fontSize: appFontSize?.body2),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(height: 4),
-                                            Text(
-                                              'ลักษณะงาน ${controller.logoCompay[index].type ?? ''}',
-                                              style: TextStyle(
-                                                  fontSize: appFontSize?.body2),
-                                              // overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(height: 4),
-                                          ],
-                                        ),
+                              boxShadow: const [
+                                BoxShadow(offset: Offset(0, 2), color: Color.fromRGBO(0, 78, 179, 0.05), blurRadius: 10)
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      flex: 2,
+                                      child: Image.network(
+                                        "${controller.logoCompay[index].image}",
+                                        height: size.height / 17,
+                                        errorBuilder: (context, error, stackTrace) =>
+                                            Image.asset('assets/images/No_Image_Available.jpg'),
+                                      )
+                                      // : Image.asset(
+                                      //     'assets/images/No_Image_Available.jpg'),
+                                      ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    flex: 8,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            controller.logoCompay[index].name ?? '',
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: appFontSize?.body),
+                                          ),
+                                          SizedBox(height: 5),
+                                          Text(
+                                            'เบอร์โทรศัพท์ ${controller.logoCompay[index].phone ?? ''}',
+                                            style: TextStyle(fontSize: appFontSize?.body2),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            'ความต้องการ ${controller.logoCompay[index].status ?? ''} ',
+                                            style: TextStyle(fontSize: appFontSize?.body2),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            'ลักษณะงาน ${controller.logoCompay[index].type ?? ''}',
+                                            style: TextStyle(fontSize: appFontSize?.body2),
+                                            // overflow: TextOverflow.ellipsis,
+                                          ),
+                                          SizedBox(height: 4),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ],
+                        ),
                       );
                     }),
               ),

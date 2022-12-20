@@ -167,6 +167,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             // ),
                             SizedBox(height: 10),
                             TextFieldRegisterWidget(
+                              readOnly: true,
                               // onSaved: (input) => firstname.text = input!,
                               hintText: date.formatTo('dd-MM-yyyy'),
                               // '${date.day}/${date.month}/${date.year}',

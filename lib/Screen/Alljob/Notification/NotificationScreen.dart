@@ -1,4 +1,3 @@
-
 import 'package:alljob/Screen/Alljob/Notification/Widgets/CardNotification.dart';
 import 'package:flutter/material.dart';
 
@@ -34,19 +33,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+            padding: EdgeInsets.all(15),
             child: Column(
               children: [
                 ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: noti.length,
-                  itemBuilder: (BuildContext context, int i){
+                  itemBuilder: (BuildContext context, int i) {
                     return Padding(
                       padding: EdgeInsets.symmetric(vertical: 3),
                       child: Container(
-                        color: Colors.grey[200],
-                        child: CardNotification(notidata: noti[i],)),
+                          color: Colors.grey[200],
+                          child: CardNotification(
+                            notidata: noti[i],
+                          )),
                     );
                   },
                 ),

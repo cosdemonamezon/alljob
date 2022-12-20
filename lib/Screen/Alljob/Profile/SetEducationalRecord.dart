@@ -20,19 +20,19 @@ class SetEducationalRecord extends StatefulWidget {
 
 class _SetEducationalRecordState extends State<SetEducationalRecord> {
   final GlobalKey<FormState> profileForm = GlobalKey<FormState>();
-  final TextEditingController educate = TextEditingController();
-  final TextEditingController major = TextEditingController();
-  final TextEditingController degree = TextEditingController();
-  final TextEditingController grade = TextEditingController();
-  final TextEditingController finished = TextEditingController();
-  final TextEditingController thai = TextEditingController();
-  final TextEditingController english = TextEditingController();
-  final TextEditingController china = TextEditingController();
-  final TextEditingController japan = TextEditingController();
-  final TextEditingController exp = TextEditingController();
-  final TextEditingController position = TextEditingController();
-  final TextEditingController salary = TextEditingController();
-  final TextEditingController remark = TextEditingController();
+  final TextEditingController? educate = TextEditingController();
+  final TextEditingController? major = TextEditingController();
+  // final TextEditingController degree = TextEditingController();
+  final TextEditingController? grade = TextEditingController();
+  final TextEditingController? finished = TextEditingController();
+  final TextEditingController? thai = TextEditingController();
+  final TextEditingController? english = TextEditingController();
+  final TextEditingController? china = TextEditingController();
+  final TextEditingController? japan = TextEditingController();
+  final TextEditingController? exp = TextEditingController();
+  final TextEditingController? position = TextEditingController();
+  final TextEditingController? salary = TextEditingController();
+  final TextEditingController? remark = TextEditingController();
 
   void initState() {
     // TODO: implement initState
@@ -42,6 +42,31 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
 
   Future<void> _firstInstall() async {
     await context.read<AppController>().initialize();
+  }
+
+  final List<String> _dropdownValues = [
+    "ป.ตรี",
+    "ป.โท",
+    "ป.เอก",
+  ];
+  String? _selectedValue;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    educate?.dispose();
+    major?.dispose();
+    grade?.dispose();
+    finished?.dispose();
+    thai?.dispose();
+    english?.dispose();
+    china?.dispose();
+    japan?.dispose();
+    exp?.dispose();
+    position?.dispose();
+    salary?.dispose();
+    remark?.dispose();
+    super.dispose();
   }
 
   @override
@@ -85,14 +110,14 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                         context: context,
                         builder: (context) => CupertinoAlertDialog(
                           title: Text(
-                            'ดำเนินการเรียบร้อย',
+                            'ยืนยัน',
                             //style: TextStyle(fontFamily: fontFamily),
                           ),
                           content: Text(
-                            'ต้องการออกจากหน้านี้หรือไม่',
+                            'ยืนยันการบันทึก',
                             //style: TextStyle(fontFamily: fontFamily),
                           ),
-                          actions: <CupertinoDialogAction>[
+                          actions: [
                             CupertinoDialogAction(
                               child: Text(
                                 'ยกเลิก',
@@ -106,7 +131,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                             ),
                             CupertinoDialogAction(
                               child: Text(
-                                'ตกลง',
+                                'ยืนยัน',
                                 // style: TextStyle(
                                 //   color: kThemeTextColor,
                                 //   fontFamily: fontFamily,
@@ -117,19 +142,19 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                                   LoadingDialog.open(context);
                                   await ProfileService().setInformationDetil(
                                     user_job_id: widget.id.toString(),
-                                    location_of_educate: educate.text,
-                                    major: major.text,
-                                    degree: degree.text,
-                                    grade: grade.text,
-                                    finished: finished.text,
-                                    thai: thai.text,
-                                    english: english.text,
-                                    china: china.text,
-                                    japan: japan.text,
-                                    exp: exp.text,
-                                    position: position.text,
-                                    salary: salary.text,
-                                    remark: remark.text,
+                                    location_of_educate: educate?.text,
+                                    major: major?.text,
+                                    degree: _selectedValue ?? '-',
+                                    grade: grade?.text,
+                                    finished: finished?.text,
+                                    thai: thai?.text,
+                                    english: english?.text,
+                                    china: china?.text,
+                                    japan: japan?.text,
+                                    exp: exp?.text,
+                                    position: position?.text,
+                                    salary: salary?.text,
+                                    remark: remark?.text,
                                   );
                                   if (mounted) {
                                     LoadingDialog.close(context);
@@ -197,7 +222,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
           body: Form(
             key: profileForm,
             child: ListView(
-              primary: true,
+              // primary: true,
               children: [
                 TextFieldRegisterWidget(
                   controller: educate,
@@ -205,12 +230,11 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                           user.user_job_detail?[0].location_of_educate != null
                       ? user.user_job_detail![0].location_of_educate
                       : 'สถานศึกษาที่จบ',
-
                   labelText: "มหาวิทยาลัย",
                   // keyboardType: TextInputType.emailAddress,
                   // validator: (value) {
                   //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
+                  //     return 'กรุณากรอกมหาวิทยาลัย';
                   //   }
                   // }
                 ),
@@ -224,23 +248,57 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                   // keyboardType: TextInputType.emailAddress,
                   // validator: (value) {
                   //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
+                  //     return 'กรุณากรอกสาขาที่จบ';
                   //   }
                   // }
                 ),
-                TextFieldRegisterWidget(
-                  controller: degree,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].degree != null
-                      ? user.user_job_detail![0].degree
-                      : 'ป.ตรี',
-                  labelText: "ระดับการศึกษา",
-                  // keyboardType: TextInputType.emailAddress,
-                  // validator: (value) {
-                  //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
-                  //   }
-                  // }
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                  child: Text('ระดับการศึกษา'),
+                ),
+                Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 12, right: 12),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          border: Border.all(color: Colors.grey),
+                          color: Colors.white),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          hint: user.user_job_detail!.isNotEmpty &&
+                                  user.user_job_detail?[0].major != null
+                              ? Text(user.user_job_detail![0].degree!)
+                              : Text(''),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, color: Colors.grey),
+                          items: _dropdownValues
+                              .map((value) => DropdownMenuItem(
+                                    value: value,
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.75,
+                                      child: Text(
+                                        value,
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                          isExpanded: false,
+                          value: _selectedValue,
+                          onChanged: (String? value) async {
+                            setState(() {
+                              _selectedValue = value!;
+                              print(_selectedValue);
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 TextFieldRegisterWidget(
                   controller: grade,
@@ -252,7 +310,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                   // keyboardType: TextInputType.emailAddress,
                   // validator: (value) {
                   //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
+                  //     return 'กรุณากรอกเกรดเฉลี่ย';
                   //   }
                   // }
                 ),
@@ -266,7 +324,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                   // keyboardType: TextInputType.emailAddress,
                   // validator: (value) {
                   //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
+                  //     return 'กรุณากรอกปีจบการศึกษา';
                   //   }
                   // }
                 ),
@@ -336,7 +394,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                   // keyboardType: TextInputType.emailAddress,
                   // validator: (value) {
                   //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
+                  //     return 'กรุณากรอกตำแหน่ง';
                   //   }
                   // }
                 ),
@@ -350,7 +408,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                   keyboardType: TextInputType.number,
                   // validator: (value) {
                   //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
+                  //     return 'กรุณากรอกเงินเดือนที่ต้องการ';
                   //   }
                   // }
                 ),
@@ -364,7 +422,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                   keyboardType: TextInputType.multiline,
                   // validator: (value) {
                   //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
+                  //     return 'กรุณากรอกประสบการณ์การทำงาน ถ้าไม่มีให้ขีด (-)';
                   //   }
                   // }
                 ),
@@ -379,7 +437,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                   // keyboardType: TextInputType.emailAddress,
                   // validator: (value) {
                   //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
+                  //     return 'กรุณากรอกคำอธิบายเกี่ยวกับตัวเอง';
                   //   }
                   // }
                 ),

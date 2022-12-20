@@ -1,16 +1,14 @@
-
 import 'package:flutter/material.dart';
 
 class TipsCarouselWidget extends StatelessWidget {
   List<Map<String, dynamic>>? tips;
-  TipsCarouselWidget({Key? key, this.tips})
-      : super(key: key);
+  TipsCarouselWidget({Key? key, this.tips}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.36,
+      height: size.height * 0.37,
       color: Colors.white,
       child: ListView.builder(
         padding: EdgeInsets.only(bottom: 10),
@@ -40,8 +38,7 @@ class TipsCarouselWidget extends StatelessWidget {
                   Hero(
                     //tag: 'recommended_carousel' + _service.id,
                     // ignore: prefer_interpolation_to_compose_strings
-                    tag: 'recommended_carousel' +
-                        tips![index].toString(),
+                    tag: 'recommended_carousel' + tips![index].toString(),
                     child: ClipRRect(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),

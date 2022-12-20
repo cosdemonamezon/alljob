@@ -106,6 +106,8 @@ class TextFieldRegisterWidget extends StatelessWidget {
     this.suffixIcon,
     this.isFirst,
     this.isLast,
+    this.autofocus,
+    this.readOnly,
     this.style,
     this.textAlign,
     this.suffix,
@@ -127,6 +129,8 @@ class TextFieldRegisterWidget extends StatelessWidget {
   final bool? obscureText;
   final bool? isFirst;
   final bool? isLast;
+  final bool? autofocus;
+  final bool? readOnly;
   final Widget? suffixIcon;
   final Widget? suffix;
   final int? maxLength;
@@ -161,6 +165,8 @@ class TextFieldRegisterWidget extends StatelessWidget {
             maxLines: keyboardType == TextInputType.multiline ? null : 1,
             maxLength: maxLength,
             key: key,
+            autofocus: autofocus ?? false,
+            readOnly: readOnly ?? false,
             keyboardType: keyboardType ?? TextInputType.text,
             onSaved: onSaved,
             onChanged: onChanged,

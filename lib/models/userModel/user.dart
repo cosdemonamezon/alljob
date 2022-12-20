@@ -1,6 +1,8 @@
 import 'package:alljob/models/userModel/userDetailJob.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'meetings.dart';
+
 part 'user.g.dart';
 
 @JsonSerializable()
@@ -17,6 +19,7 @@ class User {
     this.age,
     this.gender,
     this.marital,
+    this.meetings,
     this.user_job_detail,
   });
 
@@ -31,6 +34,7 @@ class User {
   String? age;
   String? gender;
   String? marital;
+  List<Meetings>? meetings;
   List<UserDetailJob>? user_job_detail;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

@@ -107,6 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             fontWeight: FontWeight.w500, color: Colors.grey),
                         items: _dropdownValues
                             .map((value) => DropdownMenuItem(
+                                  value: value,
                                   child: SizedBox(
                                     width: size.width * 0.75,
                                     child: Text(
@@ -116,7 +117,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ),
-                                  value: value,
                                 ))
                             .toList(),
                         isExpanded: false,
@@ -124,6 +124,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         onChanged: (String? value) async {
                           setState(() {
                             _selectedValue = value!;
+                            print(_selectedValue);
                           });
                         },
                       ),
@@ -171,11 +172,11 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   searchController.text != ''
                       ? ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        physics: const ClampingScrollPhysics(),
-                          children: List.generate(20,
-                              (index) => CardJobList(list: productlist[0])),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          physics: const ClampingScrollPhysics(),
+                          children: List.generate(
+                              20, (index) => CardJobList(list: productlist[0])),
                         )
                       //CardJobList(list: productlist[0])
                       : SizedBox(),

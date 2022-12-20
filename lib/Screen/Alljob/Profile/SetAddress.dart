@@ -1,4 +1,3 @@
-
 import 'package:alljob/Screen/Alljob/Profile/Widgets/AddTextForm.dart';
 import 'package:alljob/Screen/Widgets/ButtonRounded.dart';
 import 'package:flutter/material.dart';
@@ -113,14 +112,15 @@ class _SetAddressState extends State<SetAddress> {
                     Navigator.of(context).pop();
                   },
                 ),
-                SizedBox(width: 5,),
+                SizedBox(
+                  width: 5,
+                ),
                 ButtonRounded(
                   text: 'บันทึก',
                   color: Colors.blue,
                   textColor: Colors.white,
                   onPressed: () {},
                 ),
-                
               ],
             ),
           ],
