@@ -77,8 +77,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
         inspect(user);
         return Scaffold(
           appBar: AppBar(
-            title: Text('ประวัติการศึกษา',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            title: Text('ประวัติการศึกษา', style: TextStyle(fontWeight: FontWeight.bold)),
             backgroundColor: Colors.transparent,
             automaticallyImplyLeading: false,
             leading: IconButton(
@@ -92,13 +91,9 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
             padding: EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               color: Colors.blue,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
               boxShadow: [
-                BoxShadow(
-                    color: Colors.blueAccent.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: Offset(0, -5)),
+                BoxShadow(color: Colors.blueAccent.withOpacity(0.1), blurRadius: 10, offset: Offset(0, -5)),
               ],
             ),
             child: Row(
@@ -168,20 +163,14 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                                     context: context,
                                     builder: (context) => AlertDialog(
                                       backgroundColor: Colors.blueAccent,
-                                      title: Text("Error",
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                      content: Text(e.toString(),
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                      title: Text("Error", style: TextStyle(color: Colors.white)),
+                                      content: Text(e.toString(), style: TextStyle(color: Colors.white)),
                                       actions: [
                                         TextButton(
                                             onPressed: () {
                                               Navigator.pop(context);
                                             },
-                                            child: Text('OK',
-                                                style: TextStyle(
-                                                    color: Colors.white)))
+                                            child: Text('OK', style: TextStyle(color: Colors.white)))
                                       ],
                                     ),
                                   );
@@ -193,8 +182,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                       );
                     },
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     color: Colors.blue,
                     elevation: 0,
                     highlightElevation: 0,
@@ -226,8 +214,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
               children: [
                 TextFieldRegisterWidget(
                   controller: educate,
-                  hintText: user!.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].location_of_educate != null
+                  hintText: user!.user_job_detail!.isNotEmpty && user.user_job_detail?[0].location_of_educate != null
                       ? user.user_job_detail![0].location_of_educate
                       : 'สถานศึกษาที่จบ',
                   labelText: "มหาวิทยาลัย",
@@ -240,8 +227,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                 ),
                 TextFieldRegisterWidget(
                   controller: major,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].major != null
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].major != null
                       ? user.user_job_detail![0].major
                       : 'สาขาที่จบ',
                   labelText: "สาขาที่จบ",
@@ -266,23 +252,19 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                           color: Colors.white),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
-                          hint: user.user_job_detail!.isNotEmpty &&
-                                  user.user_job_detail?[0].major != null
+                          hint: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].major != null
                               ? Text(user.user_job_detail![0].degree!)
                               : Text(''),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, color: Colors.grey),
+                          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
                           items: _dropdownValues
                               .map((value) => DropdownMenuItem(
                                     value: value,
                                     child: SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.75,
+                                      width: MediaQuery.of(context).size.width * 0.75,
                                       child: Text(
                                         value,
                                         textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500),
+                                        style: TextStyle(fontWeight: FontWeight.w500),
                                       ),
                                     ),
                                   ))
@@ -302,8 +284,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                 ),
                 TextFieldRegisterWidget(
                   controller: grade,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].grade != null
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].grade != null
                       ? user.user_job_detail![0].grade
                       : '1.00',
                   labelText: "เกรดเฉลี่ย",
@@ -316,8 +297,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                 ),
                 TextFieldRegisterWidget(
                   controller: finished,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].finished != null
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].finished != null
                       ? user.user_job_detail![0].finished
                       : '2565',
                   labelText: "ปีจบการศึกษา",
@@ -329,65 +309,8 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                   // }
                 ),
                 TextFieldRegisterWidget(
-                  controller: thai,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].thai != null
-                      ? user.user_job_detail![0].thai
-                      : '',
-                  labelText: "ระดับภาษาไทย",
-                  // keyboardType: TextInputType.emailAddress,
-                  // validator: (value) {
-                  //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
-                  //   }
-                  // }
-                ),
-                TextFieldRegisterWidget(
-                  controller: english,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].english != null
-                      ? user.user_job_detail![0].english
-                      : '',
-                  labelText: "ระดับภาษาอังกฤษ",
-                  // keyboardType: TextInputType.emailAddress,
-                  // validator: (value) {
-                  //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
-                  //   }
-                  // }
-                ),
-                TextFieldRegisterWidget(
-                  controller: china,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].china != null
-                      ? user.user_job_detail![0].china
-                      : '',
-                  labelText: "ระดับภาษาจีน",
-                  // keyboardType: TextInputType.emailAddress,
-                  // validator: (value) {
-                  //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
-                  //   }
-                  // }
-                ),
-                TextFieldRegisterWidget(
-                  controller: japan,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].japan != null
-                      ? user.user_job_detail![0].japan
-                      : '',
-                  labelText: "ระดับภาษาญี่ปุ่น",
-                  // keyboardType: TextInputType.emailAddress,
-                  // validator: (value) {
-                  //   if (value!.isEmpty || value == '') {
-                  //     return 'กรุณากรอกอีเมลล์';
-                  //   }
-                  // }
-                ),
-                TextFieldRegisterWidget(
                   controller: position,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].position != null
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].position != null
                       ? user.user_job_detail![0].position
                       : '',
                   labelText: "ตำแหน่งที่ต้องการ",
@@ -400,8 +323,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                 ),
                 TextFieldRegisterWidget(
                   controller: salary,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].salary != null
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].salary != null
                       ? user.user_job_detail![0].salary
                       : '',
                   labelText: "เงินเดือนที่ต้องการ",
@@ -414,8 +336,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                 ),
                 TextFieldRegisterWidget(
                   controller: exp,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].exp != null
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].exp != null
                       ? user.user_job_detail![0].exp
                       : '',
                   labelText: "ประสบการณ์การทำงาน",
@@ -429,8 +350,7 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                 TextFieldRegisterWidget(
                   keyboardType: TextInputType.multiline,
                   controller: remark,
-                  hintText: user.user_job_detail!.isNotEmpty &&
-                          user.user_job_detail?[0].remark != null
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].remark != null
                       ? user.user_job_detail![0].remark
                       : '',
                   labelText: "อธิบายเกี่ยวกับตัวเอง",
@@ -438,6 +358,58 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
                   // validator: (value) {
                   //   if (value!.isEmpty || value == '') {
                   //     return 'กรุณากรอกคำอธิบายเกี่ยวกับตัวเอง';
+                  //   }
+                  // }
+                ),
+                TextFieldRegisterWidget(
+                  controller: thai,
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].thai != null
+                      ? user.user_job_detail![0].thai
+                      : '',
+                  labelText: "ระดับภาษาไทย",
+                  // keyboardType: TextInputType.emailAddress,
+                  // validator: (value) {
+                  //   if (value!.isEmpty || value == '') {
+                  //     return 'กรุณากรอกอีเมลล์';
+                  //   }
+                  // }
+                ),
+                TextFieldRegisterWidget(
+                  controller: english,
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].english != null
+                      ? user.user_job_detail![0].english
+                      : '',
+                  labelText: "ระดับภาษาอังกฤษ",
+                  // keyboardType: TextInputType.emailAddress,
+                  // validator: (value) {
+                  //   if (value!.isEmpty || value == '') {
+                  //     return 'กรุณากรอกอีเมลล์';
+                  //   }
+                  // }
+                ),
+                TextFieldRegisterWidget(
+                  controller: china,
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].china != null
+                      ? user.user_job_detail![0].china
+                      : '',
+                  labelText: "ระดับภาษาจีน",
+                  // keyboardType: TextInputType.emailAddress,
+                  // validator: (value) {
+                  //   if (value!.isEmpty || value == '') {
+                  //     return 'กรุณากรอกอีเมลล์';
+                  //   }
+                  // }
+                ),
+                TextFieldRegisterWidget(
+                  controller: japan,
+                  hintText: user.user_job_detail!.isNotEmpty && user.user_job_detail?[0].japan != null
+                      ? user.user_job_detail![0].japan
+                      : '',
+                  labelText: "ระดับภาษาญี่ปุ่น",
+                  // keyboardType: TextInputType.emailAddress,
+                  // validator: (value) {
+                  //   if (value!.isEmpty || value == '') {
+                  //     return 'กรุณากรอกอีเมลล์';
                   //   }
                   // }
                 ),

@@ -219,17 +219,19 @@ class _JobScreenState extends State<JobScreen> {
                                             )));
                               },
                               child: CircleAvatar(
-                                backgroundColor: Colors.transparent,
+                                backgroundColor: Color.fromARGB(255, 210, 208, 208),
                                 radius: 60,
                                 child: ClipOval(
-                                    child: Image.network(
-                                  controller.logoCompay[index].image!,
-                                  width: 100,
-                                  height: 100,
-                                  errorBuilder: (context, error, stackTrace) => Center(
-                                    child: Image.asset('assets/images/No_Image_Available.jpg'),
-                                  ),
-                                )),
+                                    child: controller.logoCompay[index].image != null
+                                        ? Image.network(
+                                            controller.logoCompay[index].image!,
+                                            width: 90,
+                                            height: 90,
+                                            errorBuilder: (context, error, stackTrace) => Center(
+                                              child: Image.asset('assets/images/No_Image_Available.jpg'),
+                                            ),
+                                          )
+                                        : Image.asset('assets/images/No_Image_Available.jpg')),
                               ),
                               // child: Container(
                               //   padding: EdgeInsets.all(10),
@@ -441,7 +443,7 @@ class CardJobWidget extends StatelessWidget {
       color: Color.fromARGB(255, 255, 254, 254),
       child: Container(
         height: size.height * 0.07,
-        width: size.width * 0.27,
+        width: size.width * 0.26,
         child: ListTile(
           dense: true,
           minLeadingWidth: 1,

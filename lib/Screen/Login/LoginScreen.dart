@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               )
             : SingleChildScrollView(
-                padding: EdgeInsets.all(30.0),
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: Column(
                   children: [
                     Row(
@@ -82,9 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               'Email',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                             ),
                           ),
                           AppTextForm(
@@ -95,9 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               'Password',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                             ),
                           ),
                           AppTextForm(
@@ -118,16 +114,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           LoadingDialog.open(context);
                           final String _email = email.text;
                           final String _password = password.text;
-                          final Login? login =
-                              await LoginService().loginUser(_email, _password);
+                          final Login? login = await LoginService().loginUser(_email, _password);
                           if (login != null) {
                             await prefs!.setString('token', login.token!);
-                            await prefs!
-                                .setString('member_id', login.id.toString());
+                            await prefs!.setString('member_id', login.id.toString());
                             if (!mounted) return;
                             LoadingDialog.close(context);
-                            Navigator.pushAndRemoveUntil(context,
-                                MaterialPageRoute(builder: (context) {
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
                               return AlljobHome();
                             }), (route) => false);
                             // Navigator.push(
@@ -141,17 +134,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             context: context,
                             builder: (context) => AlertDialog(
                               backgroundColor: Colors.blueAccent,
-                              title: Text("Error",
-                                  style: TextStyle(color: Colors.white)),
-                              content: Text(e.toString(),
-                                  style: TextStyle(color: Colors.white)),
+                              title: Text("Error", style: TextStyle(color: Colors.white)),
+                              content: Text(e.toString(), style: TextStyle(color: Colors.white)),
                               actions: [
                                 TextButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text('OK',
-                                        style: TextStyle(color: Colors.white)))
+                                    child: Text('OK', style: TextStyle(color: Colors.white)))
                               ],
                             ),
                           );
@@ -163,8 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: () {},
                       child: Text(
                         'ForgotPassword',
-                        style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],

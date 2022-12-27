@@ -107,18 +107,33 @@ class _DetailCompanyState extends State<DetailCompany> {
                 height: 10,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 300),
-                child: Text(
-                  '${controller.positionCompany[0].recruitment_companies!.length.toString()} ตำแหน่งงาน',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: appFontSize?.appBarFont,
-                  ),
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    controller.positionCompany[0].recruitment_companies!.isEmpty
+                        ? Center(child: CircularProgressIndicator())
+                        : Text(
+                            controller.positionCompany[0].recruitment_companies!.length.toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 25,
+                            ),
+                          ),
+                    Text(
+                      ' ตำแหน่งงาน',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
                   child: controller.positionCompany.isNotEmpty
                       ? ListView.builder(
                           // controller: _controller,

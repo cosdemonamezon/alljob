@@ -34,20 +34,48 @@ class _LinkPageState extends State<LinkPage> {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () async {
-                    final url = widget.link;
+                    onTap: () async {
+                      final url = widget.link;
 
-                    // if (await canLaunch(url!)) {
-                    //   await launch(url);
-                    // }
+                      // if (await canLaunch(url!)) {
+                      //   await launch(url);
+                      // }
 
-                    openBrowserURL(url: url!, inApp: true);
-                  },
-                  child: Text(
-                    widget.link ?? '',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                ),
+                      openBrowserURL(url: url!, inApp: true);
+                    },
+                    child: Center(
+                      child: CircleAvatar(
+                        backgroundColor: Color.fromARGB(255, 82, 145, 255),
+                        radius: 120,
+                        child: ClipOval(
+                            child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Join',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 50,
+                              ),
+                            ),
+                            Text(
+                              'Link',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 50,
+                              ),
+                            ),
+                          ],
+                        )
+                            //     Image.asset(
+                            //   'assets/icons/user.png',
+                            //   fit: BoxFit.cover,
+                            // ),
+                            ),
+                      ),
+                    )),
               ],
             ),
           ),
@@ -60,7 +88,9 @@ class _LinkPageState extends State<LinkPage> {
     required String url,
     bool inApp = false,
   }) async {
+    // ignore: deprecated_member_use
     if (await canLaunch(url)) {
+      // ignore: deprecated_member_use
       await launch(
         url,
         forceSafariVC: inApp,

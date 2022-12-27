@@ -66,18 +66,12 @@ class _OtpPageState extends State<OtpPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      buildCodeNumberBox(
-                          code.isNotEmpty ? code.substring(0, 1) : "•"),
-                      buildCodeNumberBox(
-                          code.length > 1 ? code.substring(1, 2) : "•"),
-                      buildCodeNumberBox(
-                          code.length > 2 ? code.substring(2, 3) : "•"),
-                      buildCodeNumberBox(
-                          code.length > 3 ? code.substring(3, 4) : "•"),
-                      buildCodeNumberBox(
-                          code.length > 4 ? code.substring(4, 5) : "•"),
-                      buildCodeNumberBox(
-                          code.length > 5 ? code.substring(5, 6) : "•"),
+                      buildCodeNumberBox(code.isNotEmpty ? code.substring(0, 1) : "•"),
+                      buildCodeNumberBox(code.length > 1 ? code.substring(1, 2) : "•"),
+                      buildCodeNumberBox(code.length > 2 ? code.substring(2, 3) : "•"),
+                      buildCodeNumberBox(code.length > 3 ? code.substring(3, 4) : "•"),
+                      buildCodeNumberBox(code.length > 4 ? code.substring(4, 5) : "•"),
+                      buildCodeNumberBox(code.length > 5 ? code.substring(5, 6) : "•"),
                     ],
                   ),
                 ),
@@ -111,10 +105,10 @@ class _OtpPageState extends State<OtpPage> {
                       gender: widget.userdata!['gender'],
                       marital: widget.userdata!['marital'],
                       password: widget.userdata!['password'],
+                      image: widget.userdata!['image'],
                     );
                     if (mounted) {
-                      Navigator.pushAndRemoveUntil(context,
-                          MaterialPageRoute(builder: (context) {
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
                         return WelcomeScreen();
                       }), (route) => false);
                     }
@@ -123,17 +117,14 @@ class _OtpPageState extends State<OtpPage> {
                       context: context,
                       builder: (context) => AlertDialog(
                         backgroundColor: Colors.blueAccent,
-                        title: Text("Error",
-                            style: TextStyle(color: Colors.white)),
-                        content: Text(e.toString(),
-                            style: TextStyle(color: Colors.white)),
+                        title: Text("Error", style: TextStyle(color: Colors.white)),
+                        content: Text(e.toString(), style: TextStyle(color: Colors.white)),
                         actions: [
                           TextButton(
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: Text('OK',
-                                  style: TextStyle(color: Colors.white)))
+                              child: Text('OK', style: TextStyle(color: Colors.white)))
                         ],
                       ),
                     );

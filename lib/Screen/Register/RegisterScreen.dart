@@ -45,6 +45,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String selectedStatus = 'single';
 
   DateTime date = DateTime.now();
+  File? _selectedFile;
+  Widget getImageWidget() {
+    if (_selectedFile != null) {
+      return CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 80,
+        child: ClipOval(
+          child: Image.file(
+            _selectedFile!,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    } else {
+      return CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 80,
+        child: ClipOval(
+          child: Image.asset(
+            'assets/icons/user.png',
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> getImage(ImageSource source) async {
+    try {
+      final XFile? image = await ImagePicker().pickImage(source: source);
+      if (image != null) {
+        final cropped = await ImageCropper().cropImage(
+          sourcePath: image.path,
+          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          compressQuality: 90,
+          maxHeight: 500,
+          maxWidth: 500,
+          compressFormat: ImageCompressFormat.jpg,
+        );
+
+        setState(() {
+          _selectedFile = File(cropped!.path);
+        });
+      }
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
 
   @override
   void dispose() {
@@ -87,8 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     Positioned.fill(
                       child: GestureDetector(
-                        onTap: () =>
-                            FocusScope.of(context).requestFocus(FocusNode()),
+                        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
                       ),
                     ),
                     Container(
@@ -111,7 +158,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20),
+                            Stack(
+                              children: [
+                                Center(
+                                  child: getImageWidget(),
+                                ),
+                                Positioned(
+                                  top: 130,
+                                  left: 230,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      getImage(ImageSource.gallery);
+                                    },
+                                    child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                          color: Colors.grey,
+                                        ),
+                                        child: Icon(
+                                          Icons.add_a_photo_outlined,
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            ),
                             TextFieldRegisterWidget(
                                 // onSaved: (input) => email.text = input!,
                                 // initialValue: email.text,
@@ -296,28 +368,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             //           child: Icon(Icons.calendar_month))),
                             // ),
                             Container(
-                              padding: EdgeInsets.only(
-                                  top: 16, bottom: 14, left: 16, right: 20),
-                              margin: EdgeInsets.only(
-                                  left: 20, right: 20, top: 10, bottom: 10),
+                              padding: EdgeInsets.only(top: 16, bottom: 14, left: 16, right: 20),
+                              margin: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.zero,
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.grey.withOpacity(0.1),
-                                        blurRadius: 10,
-                                        offset: Offset(0, 5)),
+                                        color: Colors.grey.withOpacity(0.1), blurRadius: 10, offset: Offset(0, 5)),
                                   ],
-                                  border: Border.all(
-                                      color: Colors.grey.withOpacity(0.05))),
+                                  border: Border.all(color: Colors.grey.withOpacity(0.05))),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     '  เพศ',
-                                    style:
-                                        TextStyle(fontSize: appFontSize?.body),
+                                    style: TextStyle(fontSize: appFontSize?.body),
                                   ),
                                   SizedBox(
                                     height: 50,
@@ -325,8 +391,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       children: [
                                         Expanded(
                                           child: RadioListTile(
-                                            title: Text('ชาย',
-                                                style: TextStyle(fontSize: 15)),
+                                            title: Text('ชาย', style: TextStyle(fontSize: 15)),
                                             value: 'm',
                                             groupValue: selectedSex,
                                             onChanged: (value) {
@@ -339,8 +404,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         ),
                                         Expanded(
                                           child: RadioListTile(
-                                            title: Text('หญิง',
-                                                style: TextStyle(fontSize: 15)),
+                                            title: Text('หญิง', style: TextStyle(fontSize: 15)),
                                             value: 'f',
                                             groupValue: selectedSex,
                                             onChanged: (value) {
@@ -358,28 +422,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.only(
-                                  top: 16, bottom: 14, left: 16, right: 20),
-                              margin: EdgeInsets.only(
-                                  left: 20, right: 20, top: 10, bottom: 10),
+                              padding: EdgeInsets.only(top: 16, bottom: 14, left: 16, right: 20),
+                              margin: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.zero,
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.grey.withOpacity(0.1),
-                                        blurRadius: 10,
-                                        offset: Offset(0, 5)),
+                                        color: Colors.grey.withOpacity(0.1), blurRadius: 10, offset: Offset(0, 5)),
                                   ],
-                                  border: Border.all(
-                                      color: Colors.grey.withOpacity(0.05))),
+                                  border: Border.all(color: Colors.grey.withOpacity(0.05))),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     '  สถานะ',
-                                    style:
-                                        TextStyle(fontSize: appFontSize?.body),
+                                    style: TextStyle(fontSize: appFontSize?.body),
                                   ),
                                   SizedBox(
                                     height: 50,
@@ -387,14 +445,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       children: [
                                         Expanded(
                                           child: RadioListTile(
-                                            title: Text('โสด',
-                                                style: TextStyle(fontSize: 15)),
+                                            title: Text('โสด', style: TextStyle(fontSize: 15)),
                                             value: 'single',
                                             groupValue: selectedStatus,
                                             onChanged: (value) {
                                               setState(() {
-                                                selectedStatus =
-                                                    value.toString();
+                                                selectedStatus = value.toString();
                                                 print(selectedStatus);
                                               });
                                             },
@@ -402,14 +458,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         ),
                                         Expanded(
                                           child: RadioListTile(
-                                            title: Text('สมรส',
-                                                style: TextStyle(fontSize: 15)),
+                                            title: Text('สมรส', style: TextStyle(fontSize: 15)),
                                             value: 'married',
                                             groupValue: selectedStatus,
                                             onChanged: (value) {
                                               setState(() {
-                                                selectedStatus =
-                                                    value.toString();
+                                                selectedStatus = value.toString();
                                                 print(selectedStatus);
                                               });
                                             },
@@ -430,9 +484,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               // initialValue: phone.text,
                               hintText: "เบอร์โทรศัพท์",
                               labelText: "เบอร์โทรศัพท์*",
-                              errorText: _errorPhone
-                                  ? 'หมายเลขโทรศัพท์นี้ถูกใช้งานแล้ว'
-                                  : null,
+                              errorText: _errorPhone ? 'หมายเลขโทรศัพท์นี้ถูกใช้งานแล้ว' : null,
                               validator: (value) {
                                 if (value!.isEmpty || value == '') {
                                   return 'กรุณากรอกเบอร์โทรศัพท์';
@@ -503,12 +555,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                               suffixIcon: IconButton(
                                 onPressed: () {
-                                  setState(
-                                      () => isObscureText = !isObscureText);
+                                  setState(() => isObscureText = !isObscureText);
                                 },
-                                icon: Icon(!isObscureText
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined),
+                                icon: Icon(!isObscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined),
                               ),
                             ),
                             // Text(
@@ -548,12 +597,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                               suffixIcon: IconButton(
                                 onPressed: () {
-                                  setState(
-                                      () => isObscureText2 = !isObscureText2);
+                                  setState(() => isObscureText2 = !isObscureText2);
                                 },
-                                icon: Icon(!isObscureText2
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined),
+                                icon: Icon(!isObscureText2 ? Icons.visibility_outlined : Icons.visibility_off_outlined),
                               ),
                             ),
                             // Text(
@@ -582,8 +628,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.5,
+                                    width: MediaQuery.of(context).size.width * 0.5,
                                     height: 45,
                                     child: GestureDetector(
                                       onTap: () async {
@@ -595,26 +640,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         print(phone!.text);
                                         print(password!.text);
                                         print(confirmpassword!.text);
-                                        if (registerFormKey.currentState!
-                                            .validate()) {
+                                        if (registerFormKey.currentState!.validate()) {
                                           setState(() {
                                             userdata = {
                                               'username': email!.text,
                                               'name': firstname!.text,
                                               'email': email!.text,
                                               'phone': phone!.text,
-                                              'birthday':
-                                                  date.formatTo('dd-MM-yyyy'),
+                                              'birthday': date.formatTo('dd-MM-yyyy'),
                                               'gender': selectedSex,
                                               'marital': selectedStatus,
                                               'password': password!.text,
-                                              'confirmpassword':
-                                                  confirmpassword!.text,
+                                              'confirmpassword': confirmpassword!.text,
+                                              'image': _selectedFile,
                                             };
                                           });
-                                          Navigator.push(context,
-                                              MaterialPageRoute(
-                                                  builder: (context) {
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) {
                                             return OtpPage(
                                               phone: phone!.text,
                                               userdata: userdata,
@@ -634,8 +675,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                             color: Colors.blue,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
+                                            borderRadius: BorderRadius.circular(8),
                                             boxShadow: [
                                               BoxShadow(
                                                   color: Colors.blueAccent,
@@ -644,8 +684,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   offset: Offset(0, 3))
                                             ]),
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               "สมัครสมาชิก",

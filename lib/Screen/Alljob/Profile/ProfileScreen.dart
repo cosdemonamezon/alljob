@@ -68,26 +68,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: size.height / 6,
                           width: size.width,
                           alignment: Alignment.center,
-                          margin: EdgeInsets.only(
-                              left: size.height / 40,
-                              right: size.height / 40,
-                              top: size.height * 0.01),
+                          margin:
+                              EdgeInsets.only(left: size.height / 40, right: size.height / 40, top: size.height * 0.01),
                           child: Row(
                             children: [
                               Expanded(
-                                flex: 2,
-                                child: Container(
-                                  margin: const EdgeInsets.only(right: 10),
-                                  height: size.width > 700 ? 70 : 50,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        image:
-                                            AssetImage('assets/icons/user.png'),
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                              ),
+                                  flex: 2,
+                                  child: user!.image != null
+                                      ? Container(
+                                          margin: const EdgeInsets.only(right: 10),
+                                          height: size.width > 700 ? 70 : 50,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                image: NetworkImage(user.image!),
+                                                fit: BoxFit.cover,
+                                              )),
+                                        )
+                                      : Container(
+                                          margin: const EdgeInsets.only(right: 10),
+                                          height: size.width > 700 ? 70 : 50,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                image: AssetImage('assets/icons/user.png'),
+                                                fit: BoxFit.cover,
+                                              )),
+                                        )),
                               Expanded(
                                 flex: 9,
                                 child: Column(
@@ -95,7 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      user?.name ?? '',
+                                      user.name ?? '',
                                       style: TextStyle(
                                         fontSize: appFontSize?.body,
                                         color: Colors.white,
@@ -106,10 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     GestureDetector(
                                       onTap: () {
                                         Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ProfileDetailScreen()));
+                                            context, MaterialPageRoute(builder: (context) => ProfileDetailScreen()));
                                       },
                                       child: Text(
                                         'แก้ไขข้อมูล',
@@ -134,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           title: 'ประวัติการศึกษา',
                           image: 'user',
                           page: SetEducationalRecord(
-                            id: user?.id?.toInt(),
+                            id: user.id?.toInt(),
                           ),
                         ),
                         Divider(color: Colors.grey),
@@ -234,8 +238,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 class TitleTextWidget extends StatelessWidget {
-  const TitleTextWidget({Key? key, required this.size, required this.title})
-      : super(key: key);
+  const TitleTextWidget({Key? key, required this.size, required this.title}) : super(key: key);
 
   final Size size;
   final String title;
@@ -245,8 +248,7 @@ class TitleTextWidget extends StatelessWidget {
     return Row(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: size.width * 0.05, vertical: size.height * 0.02),
+          padding: EdgeInsets.symmetric(horizontal: size.width * 0.05, vertical: size.height * 0.02),
           child: Text(
             title,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

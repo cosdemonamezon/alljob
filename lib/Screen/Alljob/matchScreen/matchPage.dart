@@ -93,7 +93,15 @@ class _MatchPageState extends State<MatchPage> {
                                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                                           ),
                                           Text(
-                                            'วันที่ ${controller.user!.meetings![i].start_time}',
+                                            controller.user!.meetings![i].recruitment_companie_id!,
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                          ),
+                                          Text(
+                                            'วันที่ ${controller.user!.meetings![i].agenda}',
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                                          ),
+                                          Text(
+                                            'เวลา ${controller.user!.meetings![i].start_time}',
                                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                           ),
                                         ],
@@ -160,7 +168,7 @@ class _MatchPageState extends State<MatchPage> {
                                             onTap: () {
                                               Navigator.push(context, MaterialPageRoute(builder: (context) {
                                                 return LinkPage(
-                                                  link: controller.user!.meetings![i].start_url!,
+                                                  link: controller.user!.meetings![i].join_url,
                                                 );
                                               }));
                                             },

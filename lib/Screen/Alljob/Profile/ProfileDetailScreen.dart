@@ -26,6 +26,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
   final TextEditingController phonenumber = TextEditingController();
   final TextEditingController address = TextEditingController();
   File? _selectedFile;
+  String? userImage;
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -34,6 +35,8 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
 
   Future<void> _firstInstall() async {
     await context.read<AppController>().initialize();
+    final user = await context.read<AppController>().user?.image;
+    userImage = await user;
   }
 
   Widget getImageWidget() {
@@ -53,10 +56,16 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
         backgroundColor: Colors.transparent,
         radius: 80,
         child: ClipOval(
-          child: Image.asset(
-            'assets/icons/user.png',
-            fit: BoxFit.cover,
-          ),
+          child: userImage != null
+              ? Image.network(
+                  userImage!,
+                  fit: BoxFit.cover,
+                )
+              // : Center(child: CircularProgressIndicator())
+              : Image.asset(
+                  'assets/icons/user.png',
+                  fit: BoxFit.cover,
+                ),
         ),
       );
     }
@@ -91,8 +100,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
         final user = context.read<AppController>().user;
         return Scaffold(
           appBar: AppBar(
-            title:
-                Text('Profile', style: TextStyle(fontWeight: FontWeight.bold)),
+            title: Text('Profile', style: TextStyle(fontWeight: FontWeight.bold)),
             backgroundColor: Colors.transparent,
             automaticallyImplyLeading: false,
             leading: IconButton(
@@ -106,13 +114,9 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
             padding: EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               color: Colors.blue,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
               boxShadow: [
-                BoxShadow(
-                    color: Colors.blueAccent.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: Offset(0, -5)),
+                BoxShadow(color: Colors.blueAccent.withOpacity(0.1), blurRadius: 10, offset: Offset(0, -5)),
               ],
             ),
             child: Row(
@@ -160,8 +164,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                       );
                     },
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     color: Colors.blue,
                     elevation: 0,
                     highlightElevation: 0,
@@ -219,11 +222,21 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                 Stack(
                   children: [
                     Center(
-                      child: getImageWidget(),
+                      child: CircleAvatar(backgroundColor: Colors.transparent, radius: 80, child: getImageWidget()
+                          // ClipOval(
+                          //     child: Image.network(
+                          //   user!.image!,
+                          //   width: 200,
+                          //   height: 200,
+                          //   errorBuilder: (context, error, stackTrace) => Center(
+                          //     child: Image.asset('assets/images/No_Image_Available.jpg'),
+                          //   ),
+                          // )),
+                          ),
                     ),
                     Positioned(
                       top: 130,
-                      left: 235,
+                      left: 225,
                       child: GestureDetector(
                         onTap: () {
                           getImage(ImageSource.gallery);
@@ -232,8 +245,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                             height: 30,
                             width: 30,
                             decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
                               color: Colors.grey,
                             ),
                             child: Icon(
@@ -246,27 +258,24 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
 
                 TextFieldWidget(
                   onSaved: (input) => username.text = input!,
-                  validator: (input) => input!.length < 3
-                      ? "Should be more than 3 letters"
-                      : null,
+                  validator: (input) => input!.length < 3 ? "Should be more than 3 letters" : null,
                   initialValue: username.text,
-                  hintText: user!.name,
+                  hintText: user?.name,
                   labelText: "Full Name",
                   iconData: Icons.person_outline,
                 ),
                 TextFieldWidget(
                   onSaved: (input) => email.text = input!,
-                  validator: (input) =>
-                      !input!.contains('@') ? "Should be a valid email" : null,
+                  validator: (input) => !input!.contains('@') ? "Should be a valid email" : null,
                   initialValue: email.text,
-                  hintText: user.email,
+                  hintText: user?.email,
                   labelText: "Email",
                   iconData: Icons.alternate_email,
                 ),
 
                 PhoneFieldWidget(
                     labelText: "Phone Number",
-                    hintText: user.phone,
+                    hintText: user?.phone,
                     initialCountryCode: 'TH',
                     initialValue: phonenumber.text,
                     // onSaved: (phone) {
@@ -287,9 +296,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                     ),
                 TextFieldWidget(
                   onSaved: (input) => address.text = input!,
-                  validator: (input) => input!.length < 3
-                      ? "Should be more than 3 letters"
-                      : null,
+                  validator: (input) => input!.length < 3 ? "Should be more than 3 letters" : null,
                   initialValue: address.text,
                   hintText: "123 Street, City 136, State, Country",
                   labelText: "Address",
