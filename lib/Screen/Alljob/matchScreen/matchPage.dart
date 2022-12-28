@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:alljob/Screen/Alljob/matchScreen/matchController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,12 +27,14 @@ class _MatchPageState extends State<MatchPage> {
 
   Future<void> _firstInstall() async {
     await context.read<AppController>().initialize();
+    final idUser = await context.read<AppController>().user!.id;
+    await context.read<MatchController>().getMeetings(idUser!);
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Consumer<AppController>(
+    return Consumer<MatchController>(
       builder: (context, controller, child) {
         final appFontSize = AppFontSize.of(context);
         return Scaffold(
@@ -50,11 +53,11 @@ class _MatchPageState extends State<MatchPage> {
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.all(15),
-                child: controller.user!.meetings!.isNotEmpty
+                child: controller.meetings.isNotEmpty
                     ? ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: controller.user!.meetings!.length,
+                        itemCount: controller.meetings.length,
                         itemBuilder: (BuildContext context, int i) {
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: 3),
@@ -75,39 +78,44 @@ class _MatchPageState extends State<MatchPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    // SizedBox(
-                                    //   child: CircleAvatar(
-                                    //     radius: 30,
-                                    //     child: ClipOval(
-                                    //         child: Image.asset(
-                                    //             'assets/images/cd3739.png')),
-                                    //   ),
-                                    // ),
                                     SizedBox(
-                                      width: 170,
+                                      child: CircleAvatar(
+                                          radius: 30,
+                                          child: ClipOval(
+                                              child: controller.meetings[i].user![0].image != null
+                                                  ? Image.network(controller.meetings[i].user![0].image!)
+                                                  : Image.asset('assets/images/cd3739.png'))),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.45,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            controller.user!.meetings![i].topic!,
+                                            controller.meetings[i].topic!,
                                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                                           ),
                                           Text(
-                                            controller.user!.meetings![i].recruitment_companie_id!,
-                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                            'บริษัท ${controller.meetings[i].user?[0].name ?? ''}',
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.5),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                           Text(
-                                            'วันที่ ${controller.user!.meetings![i].agenda}',
+                                            'วันที่ ${controller.meetings[i].agenda}',
                                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                           ),
                                           Text(
-                                            'เวลา ${controller.user!.meetings![i].start_time}',
+                                            'เวลา ${controller.meetings[i].start_time}',
                                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    controller.user?.meetings?[i].isAccept != true
+                                    controller.meetings[i].isAccept != true
                                         ? InkWell(
                                             onTap: () async {
                                               final result2 = await showCupertinoDialog<bool>(
@@ -141,13 +149,13 @@ class _MatchPageState extends State<MatchPage> {
                                               );
                                               if (result2 == true) {
                                                 setState(() {
-                                                  controller.user?.meetings?[i].isAccept = true;
+                                                  controller.meetings[i].isAccept = true;
                                                 });
-                                                print(controller.user?.meetings?[i].isAccept);
+                                                print(controller.meetings[i].isAccept);
                                               }
                                             },
                                             child: Container(
-                                              width: MediaQuery.of(context).size.width * 0.2,
+                                              width: MediaQuery.of(context).size.width * 0.18,
                                               height: MediaQuery.of(context).size.height * 0.1,
                                               decoration: BoxDecoration(
                                                 color: Colors.blue,
@@ -168,12 +176,12 @@ class _MatchPageState extends State<MatchPage> {
                                             onTap: () {
                                               Navigator.push(context, MaterialPageRoute(builder: (context) {
                                                 return LinkPage(
-                                                  link: controller.user!.meetings![i].join_url,
+                                                  link: controller.meetings[i].join_url,
                                                 );
                                               }));
                                             },
                                             child: Container(
-                                              width: MediaQuery.of(context).size.width * 0.2,
+                                              width: MediaQuery.of(context).size.width * 0.18,
                                               height: MediaQuery.of(context).size.height * 0.1,
                                               decoration: BoxDecoration(
                                                 color: Colors.blue,

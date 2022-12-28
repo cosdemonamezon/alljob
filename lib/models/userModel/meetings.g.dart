@@ -21,6 +21,12 @@ Meetings _$MeetingsFromJson(Map<String, dynamic> json) => Meetings(
       agenda: json['agenda'] as String?,
       join_url: json['join_url'] as String?,
       status: json['status'] as String?,
+      user: (json['user'] as List<dynamic>?)
+          ?.map((e) => Compay.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      user_job: (json['user_job'] as List<dynamic>?)
+          ?.map((e) => User.fromJson(e as Map<String, dynamic>))
+          .toList(),
       isAccept: json['isAccept'] as bool?,
     );
 
@@ -39,5 +45,7 @@ Map<String, dynamic> _$MeetingsToJson(Meetings instance) => <String, dynamic>{
       'agenda': instance.agenda,
       'join_url': instance.join_url,
       'status': instance.status,
+      'user_job': instance.user_job,
+      'user': instance.user,
       'isAccept': instance.isAccept,
     };

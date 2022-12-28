@@ -1,4 +1,7 @@
+import 'package:alljob/models/userModel/user.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../userCompany/compay.dart';
 
 part 'meetings.g.dart';
 
@@ -19,6 +22,8 @@ class Meetings {
     this.agenda,
     this.join_url,
     this.status,
+    this.user,
+    this.user_job,
     this.isAccept,
   });
 
@@ -36,10 +41,11 @@ class Meetings {
   String? agenda;
   String? join_url;
   String? status;
+  List<User>? user_job;
+  List<Compay>? user;
   bool? isAccept;
 
-  factory Meetings.fromJson(Map<String, dynamic> json) =>
-      _$MeetingsFromJson(json);
+  factory Meetings.fromJson(Map<String, dynamic> json) => _$MeetingsFromJson(json);
 
   Map<String, dynamic> toJson() => _$MeetingsToJson(this);
 }

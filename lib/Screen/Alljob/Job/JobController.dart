@@ -7,9 +7,9 @@ import '../../../models/userCompany/position.dart';
 import 'JobService.dart';
 
 class JobController extends ChangeNotifier {
-  JobController({this.jarketService = const JobService()});
+  JobController({this.jobService = const JobService()});
 
-  JobService jarketService;
+  JobService jobService;
   List<Compay> logoCompay = [];
   List<Position> positionCompany = [];
 

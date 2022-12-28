@@ -8,6 +8,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 
 import 'Screen/Alljob/Job/JobController.dart';
+import 'Screen/Alljob/matchScreen/matchController.dart';
 import 'Screen/app/AppController.dart';
 
 void main() {
@@ -16,6 +17,7 @@ void main() {
     providers: [
       ChangeNotifierProvider(create: (_) => AppController()),
       ChangeNotifierProvider(create: (_) => JobController()),
+      ChangeNotifierProvider(create: (_) => MatchController()),
     ],
     child: const MyApp(),
   ));
@@ -48,8 +50,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
         fontFamily: 'NotoSansThai',
-        textSelectionTheme:
-            TextSelectionThemeData(cursorColor: kThemeTextColor),
+        textSelectionTheme: TextSelectionThemeData(cursorColor: kThemeTextColor),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: SplashScreen(),
@@ -66,10 +67,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-        Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => WelcomeScreen())));
+    Timer(Duration(seconds: 3),
+        () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen())));
   }
 
   @override
@@ -79,13 +78,10 @@ class _SplashScreenState extends State<SplashScreen> {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFFffffff),
-                Color(0xFFd5e8f9),
-              ]),
+          gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
+            Color(0xFFffffff),
+            Color(0xFFd5e8f9),
+          ]),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -632,45 +632,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     height: 45,
                                     child: GestureDetector(
                                       onTap: () async {
-                                        print(email!.text);
-                                        print(firstname!.text);
-                                        print(date.formatTo('dd-MM-yyyy'));
-                                        print(selectedSex);
-                                        print(selectedStatus);
-                                        print(phone!.text);
-                                        print(password!.text);
-                                        print(confirmpassword!.text);
-                                        if (registerFormKey.currentState!.validate()) {
-                                          setState(() {
-                                            userdata = {
-                                              'username': email!.text,
-                                              'name': firstname!.text,
-                                              'email': email!.text,
-                                              'phone': phone!.text,
-                                              'birthday': date.formatTo('dd-MM-yyyy'),
-                                              'gender': selectedSex,
-                                              'marital': selectedStatus,
-                                              'password': password!.text,
-                                              'confirmpassword': confirmpassword!.text,
-                                              'image': _selectedFile,
-                                            };
-                                          });
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                            return OtpPage(
-                                              phone: phone!.text,
-                                              userdata: userdata,
-                                            );
-                                          }));
-                                          // Navigator.pushReplacement<void,
-                                          //     void>(
-                                          //   context,
-                                          //   MaterialPageRoute<void>(
-                                          //     builder:
-                                          //         (BuildContext context) =>
-                                          //             AlljobHome(),
-                                          //   ),
-                                          // );
+                                        if (_selectedFile != null) {
+                                          if (registerFormKey.currentState!.validate()) {
+                                            setState(() {
+                                              userdata = {
+                                                'username': email!.text,
+                                                'name': firstname!.text,
+                                                'email': email!.text,
+                                                'phone': phone!.text,
+                                                'birthday': date.formatTo('dd-MM-yyyy'),
+                                                'gender': selectedSex,
+                                                'marital': selectedStatus,
+                                                'password': password!.text,
+                                                'confirmpassword': confirmpassword!.text,
+                                                'image': _selectedFile!,
+                                              };
+                                            });
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                              return OtpPage(
+                                                phone: phone!.text,
+                                                userdata: userdata,
+                                              );
+                                            }));
+                                          }
                                         }
+                                        return showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            backgroundColor: Colors.blueAccent,
+                                            title: Text("Error", style: TextStyle(color: Colors.white)),
+                                            content:
+                                                Text('กรุณาใส่ให้ครบทุกช่อง', style: TextStyle(color: Colors.white)),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('OK', style: TextStyle(color: Colors.white)))
+                                            ],
+                                          ),
+                                        );
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(

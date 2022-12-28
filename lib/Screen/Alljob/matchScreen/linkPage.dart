@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -33,11 +35,17 @@ class _LinkPageState extends State<LinkPage> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.17,
+                ),
                 InkWell(
                     onTap: () async {
                       final url = widget.link;
+                      inspect(widget.link);
 
+                      // // ignore: deprecated_member_use
                       // if (await canLaunch(url!)) {
+                      //   // ignore: deprecated_member_use
                       //   await launch(url);
                       // }
 
@@ -96,6 +104,8 @@ class _LinkPageState extends State<LinkPage> {
         forceSafariVC: inApp,
         forceWebView: inApp,
         enableJavaScript: true,
+        enableDomStorage: true,
+        webOnlyWindowName: '_self',
       );
     }
   }

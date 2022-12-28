@@ -111,7 +111,7 @@ class _DetailCompanyState extends State<DetailCompany> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    controller.positionCompany[0].recruitment_companies!.isEmpty
+                    controller.positionCompany.isEmpty
                         ? Center(child: CircularProgressIndicator())
                         : Text(
                             controller.positionCompany[0].recruitment_companies!.length.toString(),
