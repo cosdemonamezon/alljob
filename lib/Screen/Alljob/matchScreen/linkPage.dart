@@ -105,7 +105,6 @@ class _LinkPageState extends State<LinkPage> {
         forceWebView: inApp,
         enableJavaScript: true,
         enableDomStorage: true,
-        webOnlyWindowName: '_self',
       );
     }
   }

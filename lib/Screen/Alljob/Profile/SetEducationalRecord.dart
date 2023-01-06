@@ -45,9 +45,16 @@ class _SetEducationalRecordState extends State<SetEducationalRecord> {
   }
 
   final List<String> _dropdownValues = [
-    "ป.ตรี",
-    "ป.โท",
-    "ป.เอก",
+    "ปริญญาตรี",
+    "ปริญญาโท",
+    "ปริญญาเอก",
+    "อนุปริญญา",
+    "ปวส.",
+    "ปวท.",
+    "ปวช.",
+    "มัธยมศึกษาตอนปลาย",
+    "มัธยมศึกษาตอนต้น",
+    "ต่ำกว่ามัธยมศึกษา",
   ];
   String? _selectedValue;
 

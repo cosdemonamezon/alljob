@@ -255,53 +255,71 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                     ),
                   ],
                 ),
-
-                TextFieldWidget(
-                  onSaved: (input) => username.text = input!,
-                  validator: (input) => input!.length < 3 ? "Should be more than 3 letters" : null,
-                  initialValue: username.text,
+                TextFieldRegisterWidget(
+                  controller: username,
                   hintText: user?.name,
-                  labelText: "Full Name",
-                  iconData: Icons.person_outline,
+                  labelText: "ชื่อ - นามสกุล",
                 ),
-                TextFieldWidget(
-                  onSaved: (input) => email.text = input!,
-                  validator: (input) => !input!.contains('@') ? "Should be a valid email" : null,
-                  initialValue: email.text,
+                TextFieldRegisterWidget(
+                  controller: email,
                   hintText: user?.email,
-                  labelText: "Email",
-                  iconData: Icons.alternate_email,
+                  labelText: "อีเมลล์",
                 ),
-
-                PhoneFieldWidget(
-                    labelText: "Phone Number",
-                    hintText: user?.phone,
-                    initialCountryCode: 'TH',
-                    initialValue: phonenumber.text,
-                    // onSaved: (phone) {
-                    //   return controller.user.value.phoneNumber = phone.completeNumber;
-                    // },
-                    suffix: Icon(
-                      Icons.verified,
-                      color: Colors.green,
-                    )
-                    // Text(
-                    //   "Verified",
-                    //   style: TextStyle(color: Colors.green),
-                    // )
-                    // : Text(
-                    //     "Not Verified".tr,
-                    //     style: Get.textTheme.caption.merge(TextStyle(color: Colors.redAccent)),
-                    //   ),
-                    ),
-                TextFieldWidget(
-                  onSaved: (input) => address.text = input!,
-                  validator: (input) => input!.length < 3 ? "Should be more than 3 letters" : null,
-                  initialValue: address.text,
+                TextFieldRegisterWidget(
+                  controller: phonenumber,
+                  hintText: user?.phone,
+                  labelText: "เบอร์โทรศัพท์",
+                ),
+                // TextFieldWidget(
+                //   // onSaved: (input) => username.text = input!,
+                //   // validator: (input) => input!.length < 3 ? "Should be more than 3 letters" : null,
+                //   initialValue: username.text,
+                //   hintText: user?.name,
+                //   labelText: "Full Name",
+                //   iconData: Icons.person_outline,
+                // ),
+                // TextFieldWidget(
+                //   onSaved: (input) => email.text = input!,
+                //   validator: (input) => !input!.contains('@') ? "Should be a valid email" : null,
+                //   initialValue: email.text,
+                //   hintText: user?.email,
+                //   labelText: "Email",
+                //   iconData: Icons.alternate_email,
+                // ),
+                // PhoneFieldWidget(
+                //     labelText: "เบอร์โทรศัพท์",
+                //     hintText: user?.phone,
+                //     initialCountryCode: 'TH',
+                //     initialValue: phonenumber.text,
+                //     // onSaved: (phone) {
+                //     //   return controller.user.value.phoneNumber = phone.completeNumber;
+                //     // },
+                //     suffix: Icon(
+                //       Icons.verified,
+                //       color: Colors.green,
+                //     )
+                //     // Text(
+                //     //   "Verified",
+                //     //   style: TextStyle(color: Colors.green),
+                //     // )
+                //     // : Text(
+                //     //     "Not Verified".tr,
+                //     //     style: Get.textTheme.caption.merge(TextStyle(color: Colors.redAccent)),
+                //     //   ),
+                //     ),
+                TextFieldRegisterWidget(
+                  controller: address,
                   hintText: "123 Street, City 136, State, Country",
-                  labelText: "Address",
-                  iconData: Icons.map_outlined,
+                  labelText: "ที่อยู่",
                 ),
+                // TextFieldWidget(
+                //   onSaved: (input) => address.text = input!,
+                //   validator: (input) => input!.length < 3 ? "Should be more than 3 letters" : null,
+                //   initialValue: address.text,
+                //   hintText: "123 Street, City 136, State, Country",
+                //   labelText: "Address",
+                //   iconData: Icons.map_outlined,
+                // ),
                 // TextFieldWidget(
                 //     labelText: "Password",
                 //     hintText: "••••••••••••",

@@ -216,6 +216,9 @@ class _JobScreenState extends State<JobScreen> {
                                         builder: (context) => DetailCompany(
                                               id: controller.logoCompay[index].id!,
                                               name: controller.logoCompay[index].name!,
+                                              email: controller.logoCompay[index].email!,
+                                              image: controller.logoCompay[index].image!,
+                                              phone: controller.logoCompay[index].phone!,
                                             )));
                               },
                               child: CircleAvatar(

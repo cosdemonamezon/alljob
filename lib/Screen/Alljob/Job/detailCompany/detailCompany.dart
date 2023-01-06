@@ -8,9 +8,13 @@ import '../../Companies/Widgets/CompaniesList.dart';
 import '../JobController.dart';
 
 class DetailCompany extends StatefulWidget {
-  DetailCompany({super.key, required this.id, required this.name});
+  DetailCompany(
+      {super.key, required this.id, required this.name, required this.email, required this.phone, required this.image});
   final int id;
   final String name;
+  final String email;
+  final String phone;
+  final String image;
 
   @override
   State<DetailCompany> createState() => _DetailCompanyState();
@@ -108,6 +112,102 @@ class _DetailCompanyState extends State<DetailCompany> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Color.fromARGB(255, 210, 208, 208),
+                      radius: 40,
+                      child: ClipOval(
+                          child: Image.network(
+                        widget.image,
+                        width: 60,
+                        height: 60,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset('assets/images/No_Image_Available.jpg'),
+                      )),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: Text(
+                        widget.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                        maxLines: 2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Colors.grey.withOpacity(1), Color.fromARGB(255, 173, 173, 173).withOpacity(0.1)],
+                          begin: AlignmentDirectional.topStart,
+                          //const FractionalOffset(1, 0),
+                          end: AlignmentDirectional.bottomEnd,
+                          stops: [0.1, 0.9],
+                          tileMode: TileMode.clamp),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'ติดต่อ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        widget.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          fontSize: 15,
+                        ),
+                      ),
+                      Text(
+                        widget.email,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          fontSize: 15,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        widget.phone,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

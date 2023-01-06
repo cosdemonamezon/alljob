@@ -19,8 +19,8 @@ class MatchPage extends StatefulWidget {
 
 class _MatchPageState extends State<MatchPage> {
   bool? result = false;
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _firstInstall();
   }
@@ -80,11 +80,12 @@ class _MatchPageState extends State<MatchPage> {
                                   children: [
                                     SizedBox(
                                       child: CircleAvatar(
+                                          backgroundColor: Colors.grey,
                                           radius: 30,
                                           child: ClipOval(
                                               child: controller.meetings[i].user![0].image != null
                                                   ? Image.network(controller.meetings[i].user![0].image!)
-                                                  : Image.asset('assets/images/cd3739.png'))),
+                                                  : Image.asset('assets/images/No_Image_Available.jpg'))),
                                     ),
                                     SizedBox(
                                       width: 10,
@@ -175,9 +176,7 @@ class _MatchPageState extends State<MatchPage> {
                                         : GestureDetector(
                                             onTap: () {
                                               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                                return LinkPage(
-                                                  link: controller.meetings[i].join_url,
-                                                );
+                                                return LinkPage(link: controller.meetings[i].join_url);
                                               }));
                                             },
                                             child: Container(
