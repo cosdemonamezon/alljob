@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:alljob/Screen/Alljob/matchScreen/matchController.dart';
+import 'package:alljob/Screen/Alljob/matchScreen/matchService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,9 +34,10 @@ class _MatchPageState extends State<MatchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Consumer<MatchController>(
       builder: (context, controller, child) {
+        final size = MediaQuery.of(context).size;
+        final idUser = context.read<AppController>().user!.id;
         final appFontSize = AppFontSize.of(context);
         return Scaffold(
           appBar: AppBar(
@@ -116,87 +118,117 @@ class _MatchPageState extends State<MatchPage> {
                                         ],
                                       ),
                                     ),
-                                    controller.meetings[i].isAccept != true
-                                        ? InkWell(
-                                            onTap: () async {
-                                              final result2 = await showCupertinoDialog<bool>(
-                                                context: context,
-                                                builder: (context) {
-                                                  return CupertinoAlertDialog(
-                                                    title: Text(
+                                    if (controller.meetings[i].status != 'Accept')
+                                      InkWell(
+                                        onTap: () async {
+                                          // final result2 =
+                                          await showCupertinoDialog<bool>(
+                                            context: context,
+                                            builder: (context) {
+                                              return CupertinoAlertDialog(
+                                                title: Text(
+                                                  'ยืนยัน',
+                                                ),
+                                                content: Text(
+                                                  'ยืนยันเพื่อนัดหมาย',
+                                                ),
+                                                actions: [
+                                                  CupertinoDialogAction(
+                                                    child: Text(
                                                       'ยืนยัน',
                                                     ),
-                                                    content: Text(
-                                                      'ยืนยันเพื่อนัดหมาย',
-                                                    ),
-                                                    actions: [
-                                                      CupertinoDialogAction(
-                                                        child: Text(
-                                                          'ยืนยัน',
-                                                        ),
-                                                        onPressed: () async {
+                                                    onPressed: () async {
+                                                      try {
+                                                        LoadingDialog.open(context);
+                                                        await MatchService.acceptMeeting(
+                                                            meeting_id: controller.meetings[i].id!, status: 'Accept');
+                                                        await context.read<MatchController>().getMeetings(idUser!);
+                                                        if (mounted) {
+                                                          LoadingDialog.close(context);
                                                           Navigator.pop(context, true);
-                                                        },
-                                                      ),
-                                                      CupertinoDialogAction(
-                                                        child: Text(
-                                                          'ยกเลิก',
-                                                        ),
-                                                        onPressed: () => Navigator.pop(context, false),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
+                                                        }
+                                                      } catch (e) {
+                                                        LoadingDialog.close(context);
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) => AlertDialog(
+                                                            backgroundColor: Colors.blueAccent,
+                                                            title: Text("Error", style: TextStyle(color: Colors.white)),
+                                                            content: Text(e.toString(),
+                                                                style: TextStyle(color: Colors.white)),
+                                                            actions: [
+                                                              TextButton(
+                                                                  onPressed: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                  child:
+                                                                      Text('OK', style: TextStyle(color: Colors.white)))
+                                                            ],
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
+                                                  CupertinoDialogAction(
+                                                    child: Text(
+                                                      'ยกเลิก',
+                                                    ),
+                                                    onPressed: () => Navigator.pop(context, false),
+                                                  ),
+                                                ],
                                               );
-                                              if (result2 == true) {
-                                                setState(() {
-                                                  controller.meetings[i].isAccept = true;
-                                                });
-                                                print(controller.meetings[i].isAccept);
-                                              }
                                             },
-                                            child: Container(
-                                              width: MediaQuery.of(context).size.width * 0.18,
-                                              height: MediaQuery.of(context).size.height * 0.1,
-                                              decoration: BoxDecoration(
-                                                color: Colors.blue,
-                                                borderRadius: BorderRadius.circular(20),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'Accept',
-                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        : GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                                return LinkPage(link: controller.meetings[i].join_url);
-                                              }));
-                                            },
-                                            child: Container(
-                                              width: MediaQuery.of(context).size.width * 0.18,
-                                              height: MediaQuery.of(context).size.height * 0.1,
-                                              decoration: BoxDecoration(
-                                                color: Colors.blue,
-                                                borderRadius: BorderRadius.circular(20),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'รับลิ้งค์',
-                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
+                                          );
+                                          // if (result2 == true) {
+                                          //   setState(() {
+                                          //     controller.meetings[i].isAccept = true;
+                                          //   });
+                                          //   print(controller.meetings[i].isAccept);
+                                          // }
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.18,
+                                          height: MediaQuery.of(context).size.height * 0.1,
+                                          decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius: BorderRadius.circular(20),
                                           ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Accept',
+                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    else
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                            return LinkPage(link: controller.meetings[i].join_url);
+                                          }));
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.18,
+                                          height: MediaQuery.of(context).size.height * 0.1,
+                                          decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius: BorderRadius.circular(20),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'รับลิ้งค์',
+                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     // Row(
                                     //   children: [
                                     //     InkWell(
