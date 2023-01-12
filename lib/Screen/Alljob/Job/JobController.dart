@@ -33,8 +33,9 @@ class JobController extends ChangeNotifier {
   Future<void> loadPositionCompay({
     required int Id,
   }) async {
+    positionCompany.clear();
     final _loadPosition = await JobService.getPosition(companyId: Id);
-    positionCompany = (_loadPosition);
+    positionCompany.addAll(_loadPosition);
 
     notifyListeners();
   }

@@ -632,7 +632,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     height: 45,
                                     child: GestureDetector(
                                       onTap: () async {
-                                        if (_selectedFile != null) {
+                                        FocusManager.instance.primaryFocus?.unfocus();
+                                        // if (_selectedFile != null) {
+                                        try {
                                           if (registerFormKey.currentState!.validate()) {
                                             setState(() {
                                               userdata = {
@@ -655,23 +657,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               );
                                             }));
                                           }
+                                        } catch (e) {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              backgroundColor: Colors.blueAccent,
+                                              title: Text("Error", style: TextStyle(color: Colors.white)),
+                                              content: Text('กรุณาใส่รูป', style: TextStyle(color: Colors.white)),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text('OK', style: TextStyle(color: Colors.white)))
+                                              ],
+                                            ),
+                                          );
                                         }
-                                        return showDialog(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                            backgroundColor: Colors.blueAccent,
-                                            title: Text("Error", style: TextStyle(color: Colors.white)),
-                                            content:
-                                                Text('กรุณาใส่ให้ครบทุกช่อง', style: TextStyle(color: Colors.white)),
-                                            actions: [
-                                              TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text('OK', style: TextStyle(color: Colors.white)))
-                                            ],
-                                          ),
-                                        );
+
+                                        // }
+                                        // return showDialog(
+                                        //   context: context,
+                                        //   builder: (context) => AlertDialog(
+                                        //     backgroundColor: Colors.blueAccent,
+                                        //     title: Text("Error", style: TextStyle(color: Colors.white)),
+                                        //     content:
+                                        //         Text('กรุณาใส่ให้ครบทุกช่อง', style: TextStyle(color: Colors.white)),
+                                        //     actions: [
+                                        //       TextButton(
+                                        //           onPressed: () {
+                                        //             Navigator.pop(context);
+                                        //           },
+                                        //           child: Text('OK', style: TextStyle(color: Colors.white)))
+                                        //     ],
+                                        //   ),
+                                        // );
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(

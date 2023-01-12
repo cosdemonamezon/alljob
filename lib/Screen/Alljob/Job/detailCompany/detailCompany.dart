@@ -212,7 +212,7 @@ class _DetailCompanyState extends State<DetailCompany> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     controller.positionCompany.isEmpty
-                        ? Center(child: CircularProgressIndicator())
+                        ? SizedBox.shrink()
                         : Text(
                             controller.positionCompany[0].recruitment_companies!.length.toString(),
                             style: TextStyle(
@@ -295,7 +295,7 @@ class _DetailCompanyState extends State<DetailCompany> {
                                                       ),
                                                       // SizedBox(height: 5),
                                                       Text(
-                                                        'เงินเดือน ${recruitment_companies.salary ?? ''}',
+                                                        'เงินเดือน ${recruitment_companies.salary ?? ''} /เดือน',
                                                         style: TextStyle(fontSize: appFontSize?.body2),
                                                         overflow: TextOverflow.ellipsis,
                                                       ),

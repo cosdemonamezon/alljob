@@ -98,6 +98,10 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
     return Consumer<AppController>(
       builder: (context, controller, child) {
         final user = context.read<AppController>().user;
+        username.text = user!.name ?? '';
+        email.text = user.email ?? '';
+        phonenumber.text = user.phone ?? '';
+        address.text = user.address ?? '';
         return Scaffold(
           appBar: AppBar(
             title: Text('Profile', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -257,17 +261,17 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                 ),
                 TextFieldRegisterWidget(
                   controller: username,
-                  hintText: user?.name,
+                  // hintText: user.name,
                   labelText: "ชื่อ - นามสกุล",
                 ),
                 TextFieldRegisterWidget(
                   controller: email,
-                  hintText: user?.email,
+                  // hintText: user.email,
                   labelText: "อีเมลล์",
                 ),
                 TextFieldRegisterWidget(
                   controller: phonenumber,
-                  hintText: user?.phone,
+                  // hintText: user.phone,
                   labelText: "เบอร์โทรศัพท์",
                 ),
                 // TextFieldWidget(

@@ -16,10 +16,8 @@ class JobService {
     final token = pref.getString('token');
     final url = Uri.parse('$pathApi/api/get_user_company');
 
-    final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${token}',
-      'Content-Type': 'application/json'
-    });
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer ${token}', 'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
@@ -37,10 +35,8 @@ class JobService {
     final token = pref.getString('token');
     final url = Uri.parse('$pathApi/api/recruitment_by_companie/$companyId');
 
-    final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${token}',
-      'Content-Type': 'application/json'
-    });
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer ${token}', 'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
