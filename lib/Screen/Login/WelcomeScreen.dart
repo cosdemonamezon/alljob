@@ -21,16 +21,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/welcome-screen.jpg'),
+            image: AssetImage('assets/images/[960x1600]ALLZJOB.jpg'),
             fit: BoxFit.cover,
           ),
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFFffffff),
-                Color(0xFFd5e8f9),
-              ]),
+          gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
+            Color(0xFFffffff),
+            Color(0xFFd5e8f9),
+          ]),
         ),
       ),
       bottomNavigationBar: Container(
@@ -45,8 +42,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               color: Colors.blue,
               textColor: Colors.white,
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
               },
             ),
             SizedBox(height: 8),
@@ -55,8 +51,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               color: Color.fromARGB(255, 247, 244, 244),
               textColor: Colors.blue,
               onPressed: () async {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RegisterScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
               },
             ),
           ],

@@ -78,10 +78,11 @@ class _SplashScreenState extends State<SplashScreen> {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
-            Color(0xFFffffff),
-            Color(0xFFd5e8f9),
-          ]),
+          color: Colors.white,
+          // gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
+          //   Color(0xFFffffff),
+          //   Color(0xFFd5e8f9),
+          // ]),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,7 +91,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Column(
               children: [
                 Image.asset(
-                  "assets/images/ALLZERVE.png",
+                  "assets/images/Screenshot 2566-03-09 at 16.03.22.png",
                   height: 300.0,
                   width: 300.0,
                 ),
